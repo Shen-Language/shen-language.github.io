@@ -58,6 +58,7 @@ table {
     body table {
         width: 90%;
         min-width: unset;
+        font-size: 14px;
     }
     heading {
         font-size: 48px;
