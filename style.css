@@ -33,11 +33,11 @@ th, td {
     padding: 6px;
 }
 th {
+    text-align: left;
     background-color: #000;
     color: #fff;
 }
 th[colspan="3"] {
-    text-align: left;
     background-color: #ccc;
     color: #000;
 }
