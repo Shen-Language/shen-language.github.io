@@ -11,9 +11,14 @@ body > * {
     margin: 0 auto;
 }
 
+body > img {
+    width: 25%;
+    min-width: 300px;
+}
+
 body table {
     width: 30%;
-    min-width: 300px;
+    min-width: 400px;
 }
 
 heading {
