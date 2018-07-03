@@ -50,14 +50,19 @@ table {
     * {
         font-size: 24px;
     }
-    heading {
-        font-size: 48px;
+    body > * {
+        margin: 16px auto;
     }
     body > div > img {
         width: 90%;
         margin: unset;
+        min-width: unset;
     }
     body table {
         width: 90%;
+        min-width: unset;
+    }
+    heading {
+        font-size: 48px;
     }
 }
