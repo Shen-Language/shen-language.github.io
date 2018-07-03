@@ -47,9 +47,6 @@ table {
 }
 
 @media only screen and (max-device-width: 768px) {
-    * {
-        font-size: 18px;
-    }
     body > * {
         margin: 16px auto;
     }
