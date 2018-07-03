@@ -53,4 +53,11 @@ table {
     heading {
         font-size: 48px;
     }
+    body > div > img {
+        width: 90%;
+        margin: unset;
+    }
+    body table {
+        width: 90%;
+    }
 }
