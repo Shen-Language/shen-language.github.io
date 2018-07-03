@@ -1,0 +1,29 @@
+heading {
+    font-size: 32px;
+    font-weight: bold;
+    display: block;
+    margin: 16px;
+}
+
+th, td {
+    border-width: 1px;
+    border-color: #000;
+    border-style: solid;
+    margin: 0;
+    padding: 6px;
+}
+
+th {
+    background-color: #000;
+    color: #fff;
+}
+
+th[colspan="3"] {
+    background-color: #ccc;
+    color: #000;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
