@@ -4,10 +4,11 @@
 }
 body {
     width: 100%;
+    margin: 0;
     text-align: center;
 }
 body > * {
-    margin: 0 auto;
+    margin: 16px auto;
 }
 body > div > img {
     width: 30%;
