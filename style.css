@@ -1,33 +1,29 @@
 * {
     font-family: 'Fira Sans', sans-serif;
+    font-size: 16px;
 }
-
 body {
     width: 100%;
     text-align: center;
 }
-
 body > * {
     margin: 0 auto;
 }
-
-body > img {
-    width: 25%;
-    min-width: 300px;
+body > div > img {
+    width: 30%;
+    min-width: 400px;
+    margin: 32px;
 }
-
 body table {
     width: 30%;
     min-width: 400px;
 }
-
 heading {
     font-size: 32px;
     font-weight: bold;
     display: block;
     margin: 16px;
 }
-
 th, td {
     border-width: 1px;
     border-color: #000;
@@ -35,19 +31,25 @@ th, td {
     margin: 0;
     padding: 6px;
 }
-
 th {
     background-color: #000;
     color: #fff;
 }
-
 th[colspan="3"] {
     text-align: left;
     background-color: #ccc;
     color: #000;
 }
-
 table {
     border-spacing: 0;
     border-collapse: collapse;
+}
+
+@media only screen and (max-device-width: 768px) {
+    * {
+        font-size: 24px;
+    }
+    heading {
+        font-size: 48px;
+    }
 }
