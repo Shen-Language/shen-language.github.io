@@ -45,6 +45,15 @@ table {
     border-spacing: 0;
     border-collapse: collapse;
 }
+.latest {
+    background-color: #bfb;
+}
+.recent {
+    background-color: #ffb;
+}
+.outdated {
+    background-color: #fbb;
+}
 
 @media only screen and (max-device-width: 768px) {
     body > * {

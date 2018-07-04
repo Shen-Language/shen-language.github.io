@@ -4,148 +4,85 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
         <link rel="stylesheet" href="style.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+        <script src="utils.js"></script>
+        <script src="dom.js"></script>
+        <script src="data.js"></script>
         <title>Shen Open Source Language</title>
+        <script>
+            function linkIcon(url) {
+                if (url.contains("github.com")) {
+                    return "fab fa-github";
+                }
+                const lastSlash = url.lastIndexOf("/");
+                if (url.substring(lastSlash + 1).contains(".")) {
+                    return "fas fa-download";
+                }
+                return "fas fa-link";
+            }
+
+            function projectName(p) {
+                if (p.name) {
+                    return p.name;
+                }
+                const lastSlash = p.url.lastIndexOf("/");
+                return p.url.substring(lastSlash + 1);
+            }
+
+            function subsectionRow(title) {
+                return h("tr", h("th", { colspan: 3 }, title));
+            }
+
+            function kernelVersionStyle(kernel) {
+                if (parseFloat(kernel) === latestKernelVersion) {
+                    return "latest";
+                } else if (parseFloat(kernel) >= recentKernelVersion) {
+                    return "recent";
+                } else {
+                    return "outdated";
+                }
+            }
+
+            function portRow(port) {
+                return h("tr",
+                    h("td", port.platform),
+                    h("td",
+                        h("i", { class: linkIcon(port.url) }),
+                        " ",
+                        h("a", { href: port.url }, projectName(port))),
+                    h("td", { class: kernelVersionStyle(port.kernel) }, port.kernel));
+            }
+
+            function portGroup(ports, title, predicate) {
+                return [
+                    subsectionRow(title),
+                    ports.filter(predicate).sortBy(p => p.platform).map(portRow)
+                ];
+            }
+
+            function setup() {
+                const table =
+                    h("table",
+                        h("thead",
+                            h("tr",
+                                h("th", "Platform"),
+                                h("th", "Port"),
+                                h("th", "Kernel"))),
+                        h("tbody",
+                            portGroup(ports, "Official", p => p.official && !p.archival),
+                            portGroup(ports, "Certified", p => !p.official && p.certified && !p.archival),
+                            portGroup(ports, "Uncertified", p => !p.official && !p.certified && !p.archival),
+                            portGroup(ports, "Archival", p => p.archival)));
+                document.body.append(table);
+            }
+
+            setTimeout(setup, 0);
+        </script>
     </head>
     <body>
         <div>
             <img src="https://cdn.rawgit.com/Shen-Language/shen-sources/master/assets/shen.svg">
         </div>
         <heading>Downloads</heading>
-        <table>
-            <thead>
-                <tr>
-                    <th>Platform</th>
-                    <th>Port</th>
-                    <th>Kernel</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th colspan="3">Official</th>
-                </tr>
-                <tr>
-                    <td>Common Lisp</td>
-                    <td><i class="fab fa-github"> <a href="https://github.com/Shen-Language/shen-cl">shen-cl</a></i></td>
-                    <td>21.0</td>
-                </tr>
-                <tr>
-                    <th colspan="3">Certified</th>
-                </tr>
-                <tr>
-                    <td>C</td>
-                    <td><i class="fab fa-github"></i> <a href="https://github.com/otabat/shen-c">shen-c</a></td>
-                    <td>20.0</td>
-                </tr>
-                <tr>
-                    <td><span title="Common Language Runtime">CLR</span></td>
-                    <td><i class="fab fa-github"></i> <a href="https://github.com/rkoeninger/ShenSharp">ShenSharp</a></td>
-                    <td>21.0</td>
-                </tr>
-                <tr>
-                    <td>Emacs Lisp</td>
-                    <td><i class="fab fa-github"></i> <a href="https://github.com/deech/shen-elisp">shen-elisp</a></td>
-                    <td>20.0</td>
-                </tr>
-                <tr>
-                    <td>Haskell</td>
-                    <td><i class="fab fa-github"></i> <a href="https://github.com/mthom/shentong">shentong</a></td>
-                    <td>20.0</td>
-                </tr>
-                <tr>
-                    <td>Java</td>
-                    <td><i class="fab fa-github"></i> <a href="https://github.com/otabat/shen-jvm">shen-jvm</a></td>
-                    <td>20.0</td>
-                </tr>
-                <tr>
-                    <td>Ruby</td>
-                    <td><i class="fab fa-github"></i> <a href="https://github.com/gregspurrier/shen-ruby">shen-ruby</a></td>
-                    <td>19.2</td>
-                </tr>
-                <tr>
-                    <td>Scheme</td>
-                    <td><i class="fab fa-github"></i> <a href="https://github.com/tizoc/shen-scheme">shen-scheme</a></td>
-                    <td>21.0</td>
-                </tr>
-                <tr>
-                    <td>Truffle</td>
-                    <td><i class="fab fa-github"></i> <a href="https://github.com/ragnard/shen-truffle">shen-truffle</a></td>
-                    <td>20.0</td>
-                </tr>
-                <tr>
-                    <td>Wasp Lisp</td>
-                    <td><i class="fab fa-github"></i> <a href="https://github.com/doublec/shen-wasp">shen-wasp</a></td>
-                    <td>21.0</td>
-                </tr>
-                <tr>
-                    <th colspan="3">Experimental / Pre-Release</th>
-                </tr>
-                <tr>
-                    <td>Javascript</td>
-                    <td><i class="fab fa-github"></i> <a href="https://github.com/gravicappa/shen-js">shen-js</a></td>
-                    <td>19.2</td>
-                </tr>
-                <tr>
-                    <th colspan="3">Outdated</th>
-                </tr>
-                <tr>
-                    <td>C++</td>
-                    <td><i class="fab fa-github"></i> <a href="https://github.com/wehu/ShenCPP">ShenCPP</a></td>
-                    <td>11.0</td>
-                </tr>
-                <tr>
-                    <td>Clojure</td>
-                    <td><i class="fab fa-github"></i> <a href="https://github.com/hraberg/shen.clj">shen.clj</a></td>
-                    <td>17.3</td>
-                </tr>
-                <tr>
-                    <td>Java</td>
-                    <td><i class="fab fa-github"></i> <a href="https://github.com/hraberg/Shen.java">Shen.java</a></td>
-                    <td>13.2.1</td>
-                </tr>
-                <tr>
-                    <td>Python</td>
-                    <td><i class="fab fa-github"></i> <a href="https://github.com/gravicappa/shen-py">shen-py</a></td>
-                    <td>14.0</td>
-                </tr>
-                <tr>
-                    <td>Python</td>
-                    <td><i class="fab fa-github"></i> <a href="https://github.com/yminer/pyshen">pyshen</a></td>
-                    <td>12.0</td>
-                </tr>
-                <tr>
-                    <th colspan="3">Archival <span title="Steel Bank Common Lisp">SBCL</span> Downloads</th>
-                </tr>
-                <tr>
-                    <td>CentOS</td>
-                    <td><i class="fas fa-link"></i> <a href="http://www.fractal.zone/downloads/">Shen/SBCL</a></td>
-                    <td>21.0</td>
-                </tr>
-                <tr>
-                    <td>Fedora</td>
-                    <td><i class="fas fa-link"></i> <a href="http://www.fractal.zone/downloads/">Shen/SBCL</a></td>
-                    <td>21.0</td>
-                </tr>
-                <tr>
-                    <td>Linux</td>
-                    <td><i class="fas fa-download"></i> <a href="http://shenlanguage.org/Download/Shen-SBCL-Linux.zip">Shen/SBCL</a></td>
-                    <td>19.2</td>
-                </tr>
-                <tr>
-                    <td>macOS</td>
-                    <td><i class="fas fa-download"></i> <a href="http://www.skynet.ie/~poldy/Shen-SBCL-OSX.zip">Shen/SBCL</a></td>
-                    <td>19.2</td>
-                </tr>
-                <tr>
-                    <td>Raspberry Pi</td>
-                    <td><i class="fas fa-link"></i> <a href="http://www.fractal.zone/downloads/">Shen/SBCL</a></td>
-                    <td>21.0</td>
-                </tr>
-                <tr>
-                    <td>Windows</td>
-                    <td><i class="fas fa-download"></i> <a href="http://shenlanguage.org/Download/ShenCL.zip">Shen/SBCL</a></td>
-                    <td>19.2</td>
-                </tr>
-            </tbody>
-        </table>
     </body>
 </html>
