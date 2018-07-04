@@ -43,6 +43,14 @@
                 }
             }
 
+            function kernelVersionNote(kernel) {
+                switch (kernelVersionStyle(kernel)) {
+                    case "latest": return "Up-to-date with the latest";
+                    case "recent": return "Compatible with recent versions";
+                    case "outdated": return "Several versions out-of-date";
+                }
+            }
+
             function portRow(port) {
                 return h("tr",
                     h("td", port.platform),
@@ -50,7 +58,7 @@
                         h("i", { class: linkIcon(port.url) }),
                         " ",
                         h("a", { href: port.url }, projectName(port))),
-                    h("td", { class: kernelVersionStyle(port.kernel) }, port.kernel));
+                    h("td", { class: kernelVersionStyle(port.kernel), title: kernelVersionNote(port.kernel) }, port.kernel));
             }
 
             function portGroup(ports, title, predicate) {
