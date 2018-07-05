@@ -23,7 +23,7 @@ main p {
 main table {
     width: 100%;
 }
-heading {
+header {
     font-size: 32px;
     font-weight: bold;
     display: block;
@@ -84,7 +84,7 @@ table {
         width: 100%;
         font-size: 14px;
     }
-    heading {
+    header {
         font-size: 48px;
     }
 }
