@@ -77,9 +77,8 @@
                                 h("th", "Port"),
                                 h("th", "Kernel"))),
                         h("tbody",
-                            portGroup(ports, "Official", p => p.official && !p.archival),
-                            portGroup(ports, "Certified", p => !p.official && p.certified && !p.archival),
-                            portGroup(ports, "Uncertified", p => !p.official && !p.certified && !p.archival),
+                            portGroup(ports, "Certified", p => p.certified && !p.archival),
+                            portGroup(ports, "Uncertified", p => !p.certified && !p.archival),
                             portGroup(ports, "Archival", p => p.archival)));
                 document.body.append(table);
             }
