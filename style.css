@@ -18,10 +18,13 @@ main #logo {
     max-width: 500px;
 }
 main p {
-    text-align: left;
+    text-align: justify;
 }
 main table {
     width: 100%;
+}
+.table-spacer {
+    padding: 18px;
 }
 header {
     font-size: 32px;
