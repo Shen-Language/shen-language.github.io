@@ -9,6 +9,7 @@ body {
 }
 main {
     margin: 16px auto;
+    padding: 24px;
     width: 40%;
     min-width: 400px;
 }
@@ -70,7 +71,6 @@ table {
     main {
         background-color: #fffa;
         box-shadow: 0px 0px 24px 24px #fffa;
-        padding: 24px;
     }
 }
 
