@@ -12,6 +12,29 @@
         <script src="dom.js"></script>
         <script src="data.js"></script>
         <title>Shen Open Source Language</title>
+        <script type="text/shen">
+            (define child
+              Parent Child ->
+                (.appendChild p (js.document.createTextNode Child))
+                where (string? Child)
+              Parent Child ->
+                (for-each-assoc
+                  Child
+                  (/. K V
+                    (if (not (= K markElement))
+                      (.setAttribute Parent (str K) V)
+                      ())))
+                where (and (cons? Child) (not (.markElement Child)))
+              Parent Child ->
+                (.append Parent Child))
+
+            (define h
+              [Name | Children] ->
+                (let Element (js.document.createElement Name)
+                     _       (js.assign element.markElement js.true)
+                     _       (for-each (child Element) (flatten Children))
+                     Element))
+        </script>
         <script>
             function linkIcon(url) {
                 if (url.contains("github.com")) {
