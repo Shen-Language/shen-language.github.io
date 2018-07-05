@@ -7,17 +7,21 @@ body {
     margin: 0;
     text-align: center;
 }
-body > * {
+main {
     margin: 16px auto;
-}
-body > div > img {
-    width: 30%;
+    width: 40%;
     min-width: 400px;
+}
+main > div > img {
+    width: 90%;
     margin: 32px;
+    max-width: 500px;
 }
-body table {
-    width: 30%;
-    min-width: 400px;
+main p {
+    text-align: left;
+}
+main table {
+    width: 100%;
 }
 heading {
     font-size: 32px;
@@ -56,17 +60,16 @@ table {
 }
 
 @media only screen and (max-device-width: 768px) {
-    body > * {
+    main {
         margin: 16px auto;
     }
-    body > div > img {
+    main > div > img {
         width: 90%;
         margin: unset;
         min-width: unset;
     }
-    body table {
-        width: 90%;
-        min-width: unset;
+    main table {
+        width: 100%;
         font-size: 14px;
     }
     heading {

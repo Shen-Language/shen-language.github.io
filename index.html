@@ -69,6 +69,7 @@
             }
 
             function setup() {
+                const listedPorts = ports.filter(p => !p.archival);
                 const table =
                     h("table",
                         h("thead",
@@ -77,19 +78,28 @@
                                 h("th", "Port"),
                                 h("th", "Kernel"))),
                         h("tbody",
-                            portGroup(ports, "Certified", p => p.certified && !p.archival),
-                            portGroup(ports, "Uncertified", p => !p.certified && !p.archival),
-                            portGroup(ports, "Archival", p => p.archival)));
-                document.body.append(table);
+                            portGroup(listedPorts, "Certified", p => p.certified),
+                            portGroup(listedPorts, "Uncertified", p => !p.certified)));
+                var target = document.getElementById("downloads-table");
+                target.parentNode.replaceChild(table, target);
             }
 
             setTimeout(setup, 0);
         </script>
     </head>
     <body>
-        <div>
-            <img src="https://cdn.rawgit.com/Shen-Language/shen-sources/master/assets/shen.svg">
-        </div>
-        <heading>Downloads</heading>
+        <main>
+            <div>
+                <img src="https://cdn.rawgit.com/Shen-Language/shen-sources/master/assets/shen.svg">
+            </div>
+            <heading>Downloads</heading>
+            <p>
+                Below are various implementations of Shen for most platforms. Some have fallen out of date and could use support to reach Certified status and stay current.
+            </p>
+            <p>
+                To port Shen to a new platform, <a href="https://github.com/Shen-Language/shen-sources/blob/master/doc/porting.md">see the porting guide</a> on implementing Shen. You can <a href="https://github.com/Shen-Language/shen-language.github.io/">submit a pull request</a> to get it added here.
+            </p>
+            <div id="downloads-table"></div>
+        </main>
     </body>
 </html>
