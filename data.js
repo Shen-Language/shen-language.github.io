@@ -71,7 +71,7 @@ var ports = [
         platform: "JavaScript",
         url: "https://github.com/rkoeninger/ShenScript",
         kernel: "21.0"
-    }
+    },
     {
         platform: "C++",
         url: "https://github.com/wehu/ShenCPP",
