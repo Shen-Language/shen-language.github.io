@@ -6,12 +6,17 @@ body {
     width: 100%;
     margin: 0;
     text-align: center;
+    background-image: url('assets/background.png');
+    background-repeat: all;
 }
 main {
     margin: 16px auto;
     padding: 24px;
-    width: 40%;
+    width: 45%;
     min-width: 400px;
+    max-width: 600px;
+    background-color: #fffa;
+    box-shadow: 0px 0px 24px 24px #fffa;
 }
 main #logo {
     width: 45%;
@@ -64,14 +69,6 @@ table {
 }
 
 @media only screen and (min-device-width: 769px) {
-    body {
-        background-image: url('assets/background.png');
-        background-repeat: all;
-    }
-    main {
-        background-color: #fffa;
-        box-shadow: 0px 0px 24px 24px #fffa;
-    }
 }
 
 @media only screen and (max-device-width: 768px) {
