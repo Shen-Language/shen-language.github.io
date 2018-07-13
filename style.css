@@ -68,8 +68,10 @@ table {
 }
 .feature-list {
     margin: 16px;
+    padding-left: 0;
     display: grid;
     grid-template-columns: 50% 50%;
+    list-style-type: none;
 }
 .feature-item {
     margin: 8px;
