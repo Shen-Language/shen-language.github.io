@@ -7,7 +7,6 @@ body {
     margin: 0;
     text-align: center;
     background-image: url('assets/background.png');
-    background-repeat: all;
 }
 main {
     margin: 16px auto;
@@ -67,8 +66,24 @@ table {
 .outdated {
     background-color: #fbb;
 }
+.feature-list {
+    margin: 16px;
+    padding-left: 0;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    list-style-type: none;
+}
+.feature-item {
+    margin: 8px;
+}
 
 @media only screen and (min-device-width: 769px) {
+    .feature-item:nth-child(odd) {
+        grid-column: 1;
+    }
+    .feature-item:nth-child(even) {
+        grid-column: 2;
+    }
 }
 
 @media only screen and (max-device-width: 768px) {
@@ -86,5 +101,9 @@ table {
     }
     header {
         font-size: 48px;
+    }
+    .feature-item {
+        grid-column-start: 1;
+        grid-column-end: -1;
     }
 }

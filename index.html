@@ -13,6 +13,8 @@
         <script src="data.js"></script>
         <title>Shen Open Source Language</title>
         <script type="text/shen">
+            \\ TODO: Re-write the below javascript in Shen
+
             (define child
               Parent Child ->
                 (.appendChild p (js.document.createTextNode Child))
@@ -119,6 +121,26 @@
                 <img id="logo" src="https://cdn.rawgit.com/Shen-Language/shen-sources/master/assets/shen.svg">
             </section>
             <section>
+                <header>About</header>
+                <p>
+                    Shen is a portable functional programming language by <a href="http://www.marktarver.com/">Mark Tarver</a> offering:
+                </p>
+                <ul class="feature-list">
+                    <!-- Make these links to docs or tutorial pages about the respective feature -->
+                    <li class="feature-item">Pattern Matching</li>
+                    <li class="feature-item">Lambda Calculus Consistency</li>
+                    <li class="feature-item">Unique Macros</li>
+                    <li class="feature-item">Optional Lazy Evalution</li>
+                    <li class="feature-item">Configurable Static Type System</li>
+                    <li class="feature-item">Integrated Logic Engine</li>
+                    <li class="feature-item">Built-in Compiler-Compiler</li>
+                    <li class="feature-item">Interactive Debugger</li>
+                </ul>
+                <p>
+                    More information is available on the <a href="http://shenlanguage.org">official website</a> and in <a href="https://www.amazon.co.uk/Book-Shen-Third-Mark-Tarver/dp/1784562130/ref=sr_1_2?s=books&ie=UTF8&qid=1459204767&sr=1-2">The Book of Shen</a>.
+                </p>
+            </section>
+            <section>
                 <header>Demo</header>
                 <p>
                     An in-browser REPL is hosted <a href="http://gravicappa.github.io/shen-js/shen.html#/.doc/welcome.html">here</a> where you can try out Shen and take a brief tutorial.
@@ -127,17 +149,23 @@
             <section>
                 <header>Downloads</header>
                 <p>
-                    Below are various implementations of Shen for most platforms. Some have fallen out of date and could use support to reach Certified status and stay current.
+                    There are implementations of Shen for most platforms. Some have fallen out of date and could use support to reach Certified status and stay current.
                 </p>
                 <p>
-                    An implementation is considered Certified if it passes the test suite included with the <a href="https://github.com/Shen-Language/shen-sources">kernel sources</a>.
+                    An implementation is considered Certified if it passes <a href="https://github.com/Shen-Language/shen-sources/tree/master/tests">the test suite</a> included with the <a href="https://github.com/Shen-Language/shen-sources/tree/master/sources">kernel sources</a>.
                 </p>
                 <p>
-                    To port Shen to a new platform, <a href="https://github.com/Shen-Language/shen-sources/blob/master/doc/porting.md">see the porting guide</a>. You can <a href="https://github.com/Shen-Language/shen-language.github.io/">submit a pull request</a> to get it added here.
+                    To port Shen to a new platform, <a href="https://github.com/Shen-Language/shen-sources/blob/master/doc/porting.md">see the porting guide</a>. You can <a href="https://github.com/Shen-Language/shen-language.github.io/pull/new/master">submit a pull request</a> to get it added here.
                 </p>
                 <div class="table-spacer">
                     <div id="downloads-table"></div>
                 </div>
+            </section>
+            <section>
+                <header>Contributing</header>
+                <p>
+                    The Shen Open Source Kernel is authored in Shen itself and hosted <a href="https://github.com/Shen-Language/shen-sources">on GitHub</a>. Bug reports and suggested enhancements are welcome!
+                </p>
             </section>
         </main>
     </body>
