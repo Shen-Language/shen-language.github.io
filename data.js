@@ -27,6 +27,12 @@ var ports = [
         certified: true
     },
     {
+        platform: "Go",
+        url: "https://github.com/tiancaiamao/shen-go",
+        kernel: "21.0",
+        certified: true
+    },
+    {
         platform: "Haskell",
         url: "https://github.com/mthom/shentong",
         kernel: "20.0",
