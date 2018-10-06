@@ -27,6 +27,12 @@ var ports = [
         certified: true
     },
     {
+        platform: "Erlang",
+        url: "https://github.com/sborrazas/shen-erl",
+        kernel: "21.1",
+        certified: false
+    },
+    {
         platform: "Go",
         url: "https://github.com/tiancaiamao/shen-go",
         kernel: "21.0",
