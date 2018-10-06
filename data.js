@@ -1,4 +1,4 @@
-var latestKernelVersion = 21.0;
+var latestKernelVersion = 21.1;
 var recentKernelVersion = 19.2;
 
 var ports = [
