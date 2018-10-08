@@ -31,6 +31,9 @@ main table {
 .table-spacer {
     padding: 18px;
 }
+.link-spacer {
+    margin-right: 8px;
+}
 header {
     font-size: 32px;
     font-weight: bold;

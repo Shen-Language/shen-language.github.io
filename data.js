@@ -1,6 +1,45 @@
 var latestKernelVersion = 21.1;
 var recentKernelVersion = 19.2;
 
+var contributors = [
+    {
+        github: "tizoc"
+    },
+    {
+        name: "Chris Double",
+        github: "doublec",
+        blog: "http://www.bluishcoder.co.nz/",
+        email: "chris.double@double.co.nz"
+    },
+    {
+        name: "Robert Koeninger",
+        github: "rkoeninger",
+        blog: "https://rkoeninger.github.io/"
+    },
+    {
+        name: "Rick Hanson",
+        github: "cryptorick"
+    },
+    {
+        github: "cxxxr"
+    },
+    {
+        github: "MTarver"
+    },
+    {
+        name: "Jan Moringen",
+        github: "scymtym"
+    },
+    {
+        github: "deech"
+    },
+    {
+        name: "Stephan Renatus",
+        github: "srenatus",
+        email: "srenatus@chef.io"
+    }
+];
+
 var ports = [
     {
         platform: "Common Lisp",

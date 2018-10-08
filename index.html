@@ -42,11 +42,22 @@
                 if (url.contains("github.com")) {
                     return "fab fa-github";
                 }
+                if (url.contains("mailto:")) {
+                    return "far fa-envelope";
+                }
                 const lastSlash = url.lastIndexOf("/");
                 if (url.substring(lastSlash + 1).contains(".")) {
                     return "fas fa-download";
                 }
                 return "fas fa-link";
+            }
+
+            function link(url, name) {
+                return h("span",
+                    { class: "link-spacer" },
+                    h("i", { class: linkIcon(url) }),
+                    " ",
+                    h("a", { href: url }, name));
             }
 
             function projectName(p) {
@@ -82,10 +93,7 @@
             function portRow(port) {
                 return h("tr",
                     h("td", port.platform),
-                    h("td",
-                        h("i", { class: linkIcon(port.url) }),
-                        " ",
-                        h("a", { href: port.url }, projectName(port))),
+                    h("td", link(port.url, projectName(port))),
                     h("td", { class: kernelVersionStyle(port.kernel), title: kernelVersionNote(port.kernel) }, port.kernel));
             }
 
@@ -96,7 +104,7 @@
                 ];
             }
 
-            function setup() {
+            function setupDownloadsTable() {
                 const listedPorts = ports.filter(p => !p.archival);
                 const table =
                     h("table",
@@ -108,8 +116,32 @@
                         h("tbody",
                             portGroup(listedPorts, "Certified", p => p.certified),
                             portGroup(listedPorts, "Uncertified", p => !p.certified)));
-                var target = document.getElementById("downloads-table");
+                const target = document.getElementById("downloads-table");
                 target.parentNode.replaceChild(table, target);
+            }
+
+            function setupCommunityTable() {
+                const table =
+                    h("table",
+                        h("thead",
+                            h("tr",
+                                h("th", "Contributor"),
+                                h("th", "Links"))),
+                        h("tbody", contributors.sortBy(p => (p.name || p.github || "").toLowerCase()).map(p =>
+                            h("tr",
+                                h("td", p.name || p.github),
+                                h("td", [
+                                    p.github && link("https://github.com/" + p.github, p.github),
+                                    p.blog && link(p.blog, "blog"),
+                                    //p.email && link("mailto:" + p.email, "email")
+                                ])))));
+                const target = document.getElementById("community-table");
+                target.parentNode.replaceChild(table, target);
+            }
+
+            function setup() {
+                setupDownloadsTable();
+                setupCommunityTable();
             }
 
             setTimeout(setup, 0);
@@ -165,6 +197,18 @@
                 <header>Contributing</header>
                 <p>
                     The Shen Open Source Kernel is authored in Shen itself and hosted <a href="https://github.com/Shen-Language/shen-sources">on GitHub</a>. Bug reports and suggested enhancements are welcome!
+                </p>
+            </section>
+            <section>
+                <header>Community</header>
+                <p>
+                    The follow is a (non-exhaustive) list of developers who have contributed to the Shen Language Open Source Community.
+                </p>
+                <div class="table-spacer">
+                    <div id="community-table"></div>
+                </div>
+                <p>
+                    Thanks to everyone for contributing!
                 </p>
             </section>
         </main>
