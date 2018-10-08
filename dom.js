@@ -16,6 +16,6 @@ function child(p, c) {
 function h(name, ...children) {
     const element = document.createElement(name);
     element.markElement = true;
-    _.each(_.flatten(children), c => child(element, c));
+    _.each(_.flatten(children).filter(x => x !== null && x !== undefined), c => child(element, c));
     return element;
 }
