@@ -69,7 +69,7 @@ var ports = [
         platform: "Erlang",
         url: "https://github.com/sborrazas/shen-erl",
         kernel: "21.1",
-        certified: false
+        certified: true
     },
     {
         platform: "Go",
