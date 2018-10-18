@@ -6,109 +6,109 @@ var timeout = [1, 'days'];
 var ports = [
     {
         platform: "Common Lisp",
-        url: "https://github.com/Shen-Language/shen-cl",
+        github: "Shen-Language/shen-cl",
         kernel: "21.1",
         certified: true
     },
     {
         platform: "C",
-        url: "https://github.com/otabat/shen-c",
+        github: "otabat/shen-c",
         kernel: "20.0",
         certified: true
     },
     {
         platform: "CLR",
-        url: "https://github.com/rkoeninger/ShenSharp",
+        github: "rkoeninger/ShenSharp",
         kernel: "21.1",
         certified: true
     },
     {
         platform: "Emacs Lisp",
-        url: "https://github.com/deech/shen-elisp",
+        github: "deech/shen-elisp",
         kernel: "20.0",
         certified: true
     },
     {
         platform: "Erlang",
-        url: "https://github.com/sborrazas/shen-erl",
+        github: "sborrazas/shen-erl",
         kernel: "21.1",
         certified: true
     },
     {
         platform: "Go",
-        url: "https://github.com/tiancaiamao/shen-go",
+        github: "tiancaiamao/shen-go",
         kernel: "21.0",
         certified: true
     },
     {
         platform: "Haskell",
-        url: "https://github.com/mthom/shentong",
+        github: "mthom/shentong",
         kernel: "20.0",
         certified: true
     },
     {
         platform: "Java",
-        url: "https://github.com/otabat/shen-jvm",
+        github: "otabat/shen-jvm",
         kernel: "21.0",
         certified: true
     },
     {
         platform: "Ruby",
-        url: "https://github.com/gregspurrier/shen-ruby",
+        github: "gregspurrier/shen-ruby",
         kernel: "19.2",
         certified: true
     },
     {
         platform: "Scheme",
-        url: "https://github.com/tizoc/shen-scheme",
+        github: "tizoc/shen-scheme",
         kernel: "21.0",
         certified: true
     },
     {
         platform: "Truffle",
-        url: "https://github.com/ragnard/shen-truffle",
+        github: "ragnard/shen-truffle",
         kernel: "20.0",
         certified: true
     },
     {
         platform: "Wasp Lisp",
-        url: "https://github.com/doublec/shen-wasp",
+        github: "doublec/shen-wasp",
         kernel: "21.1",
         certified: true
     },
     {
         platform: "JavaScript",
-        url: "https://github.com/gravicappa/shen-js",
+        github: "gravicappa/shen-js",
         kernel: "19.2"
     },
     {
         platform: "JavaScript",
-        url: "https://github.com/rkoeninger/ShenScript",
+        github: "rkoeninger/ShenScript",
         kernel: "21.0"
     },
     {
         platform: "C++",
-        url: "https://github.com/wehu/ShenCPP",
+        github: "wehu/ShenCPP",
         kernel: "11.0"
     },
     {
         platform: "Clojure",
-        url: "https://github.com/hraberg/shen.clj",
+        github: "hraberg/shen.clj",
         kernel: "17.3"
     },
     {
         platform: "Java",
-        url: "https://github.com/hraberg/Shen.java",
+        github: "hraberg/Shen.java",
         kernel: "13.2.1"
     },
     {
         platform: "Python",
-        url: "https://github.com/gravicappa/shen-py",
+        github: "gravicappa/shen-py",
         kernel: "14.0"
     },
     {
         platform: "Python",
-        url: "https://github.com/yminer/pyshen",
+        github: "yminer/pyshen",
         kernel: "12.0"
     },
     {
