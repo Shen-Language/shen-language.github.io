@@ -13,6 +13,18 @@
         <script src="data.js"></script>
         <title>Shen Open Source Language</title>
         <script>
+            "use strict";
+
+            function beforeLastSlash(s) {
+                const lastSlash = s.lastIndexOf("/");
+                return lastSlash < 0 ? s : s.substring(0, lastSlash);
+            }
+
+            function afterLastSlash(s) {
+                const lastSlash = s.lastIndexOf("/");
+                return s.substring(lastSlash + 1);
+            }
+
             function linkIcon(url) {
                 if (url.contains("mailto:")) {
                     return "far fa-envelope";
@@ -20,8 +32,7 @@
                 if (url.contains("github.com")) {
                     return "fab fa-github";
                 }
-                const lastSlash = url.lastIndexOf("/");
-                if (url.substring(lastSlash + 1).contains(".")) {
+                if (afterLastSlash(url).contains(".")) {
                     return "fas fa-download";
                 }
                 return "fas fa-link";
@@ -61,9 +72,7 @@
                 if (port.name) {
                     return port.name;
                 }
-                const url = port.github || port.url;
-                const lastSlash = url.lastIndexOf("/");
-                return url.substring(lastSlash + 1);
+                return afterLastSlash(port.github || port.url);
             }
 
             function portUrl(port) {
@@ -100,23 +109,28 @@
                 target.parentNode.replaceChild(table, target);
             }
 
-            function fetchContributors(f) {
+            function fetchContributors(onFetch, onError) {
                 const cached = localStorage.getItem("contributors");
                 if (cached) {
                     const {timestamp, contributors} = JSON.parse(cached);
                     const [amount, unit] = timeout;
                     if (moment().isAfter(moment(timestamp).add(amount, unit))) {
-                        f(contributors)
+                        onFetch(contributors)
                         return;
                     }
                 }
+                const maintainers = ports
+                    .map(p => p.github)
+                    .filter(p => p !== undefined)
+                    .map(beforeLastSlash)
+                    .filter(m => m !== "Shen-Language");
                 const repos = [
-                    "Shen-Language/shen-cl",
-                    "Shen-Language/shen-sources",
-                    "Shen-Language/shen-language.github.io"
+                    "shen-cl",
+                    "shen-sources",
+                    "shen-language.github.io"
                 ];
                 const rootApiUrl = "https://api.github.com";
-                const contribApiUrl = repo => rootApiUrl + "/repos/" + repo + "/stats/contributors";
+                const contribApiUrl = repo => rootApiUrl + "/repos/Shen-Language/" + repo + "/stats/contributors";
                 const profileApiUrl = login => rootApiUrl + "/users/" + login;
                 const fetchJSON = url => fetch(url).then(r => r.json());
                 Promise.all(
@@ -124,7 +138,7 @@
                         fetchJSON(u).then(cs =>
                             cs.map(c => c.author.login)))
                 ).then(ls => {
-                    const logins = _.uniq(_.flatten(ls));
+                    const logins = maintainers.concat(ls.flatten()).distinct();
                     Promise.all(
                         logins.map(profileApiUrl).map(u =>
                             fetchJSON(u).then(c => ({
@@ -138,9 +152,9 @@
                             contributors: us
                         };
                         localStorage.setItem("contributors", JSON.stringify(cached));
-                        f(us);
+                        onFetch(us);
                     });
-                });
+                }).catch(onError);
             }
 
             function setupCommunityTable() {
@@ -160,6 +174,13 @@
                                     ])))));
                     const target = document.getElementById("community-table");
                     target.parentNode.replaceChild(table, target);
+                }, error => {
+                    const notice =
+                        h("div",
+                            h("p", "Unable to load contributors"),
+                            h("p", "GitHub rate limit may be expended, try again later"));
+                    const target = document.getElementById("community-table");
+                    target.parentNode.replaceChild(notice, target);
                 });
             }
 
