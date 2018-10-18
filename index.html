@@ -121,40 +121,39 @@
                     .filter(p => p !== undefined)
                     .map(beforeLastSlash)
                     .filter(m => m !== "Shen-Language");
-                const repos = [
-                    "shen-cl",
-                    "shen-sources",
-                    "shen-language.github.io"
-                ];
                 const rootApiUrl = "https://api.github.com";
-                const contribApiUrl = repo => rootApiUrl + "/repos/Shen-Language/" + repo + "/stats/contributors";
+                const orgReposUrl = rootApiUrl + "/orgs/Shen-Language/repos";
+                const contribApiUrl = repo => rootApiUrl + "/repos/" + repo + "/stats/contributors";
                 const profileApiUrl = login => rootApiUrl + "/users/" + login;
                 const fetchJSON = url => fetch(url).then(r => r.json());
-                Promise.all(
-                    repos.map(contribApiUrl).map(u =>
-                        fetchJSON(u).then(cs =>
-                            cs.map(c => c.author.login)))
-                ).then(ls => {
-                    const logins = maintainers.concat(ls.flatten()).distinct();
+                fetchJSON(orgReposUrl).then(repos =>
                     Promise.all(
-                        logins.map(profileApiUrl).map(u =>
-                            fetchJSON(u).then(c => ({
-                                github: c.login,
-                                name: c.name,
-                                blog: c.blog
-                            })))
-                    ).then(us => {
-                        const cached = {
-                            timestamp: moment(),
-                            contributors: us
-                        };
-                        localStorage.setItem("contributors", JSON.stringify(cached));
-                        onFetch(us);
-                    });
-                }).catch(onError);
+                        repos.map(r => contribApiUrl(r.full_name)).map(u =>
+                            fetchJSON(u).then(cs =>
+                                cs.map(c => c.author.login)))
+                    ).then(ls => {
+                        const logins = maintainers.concat(ls.flatten()).distinct();
+                        Promise.all(
+                            logins.map(profileApiUrl).map(u =>
+                                fetchJSON(u).then(c => ({
+                                    github: c.login,
+                                    name: c.name,
+                                    blog: c.blog
+                                })))
+                        ).then(us => {
+                            us = us.filter(u => u);
+                            const cached = {
+                                timestamp: moment(),
+                                contributors: us
+                            };
+                            localStorage.setItem("contributors", JSON.stringify(cached));
+                            onFetch(us);
+                        });
+                })).catch(onError);
             }
 
             function setupCommunityTable() {
+                const target = document.getElementById("community-table");
                 fetchContributors(contributors => {
                     const table =
                         h("table",
@@ -169,14 +168,13 @@
                                         p.github && link("https://github.com/" + p.github, p.github),
                                         p.blog && link(p.blog, "blog")
                                     ])))));
-                    const target = document.getElementById("community-table");
                     target.parentNode.replaceChild(table, target);
                 }, error => {
+                    console.error(error);
                     const notice =
                         h("div",
                             h("p", "Unable to load contributors"),
                             h("p", "GitHub rate limit may be expended, try again later"));
-                    const target = document.getElementById("community-table");
                     target.parentNode.replaceChild(notice, target);
                 });
             }
