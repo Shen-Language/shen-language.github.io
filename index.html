@@ -6,44 +6,18 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
         <link rel="stylesheet" href="style.css">
         <link ref="icon" type="image/png" href="favicon.png">
-        <!--script src="shenscript.js"></script-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
         <script src="utils.js"></script>
         <script src="dom.js"></script>
         <script src="data.js"></script>
         <title>Shen Open Source Language</title>
-        <script type="text/shen">
-            \\ TODO: Re-write the below javascript in Shen
-
-            (define child
-              Parent Child ->
-                (.appendChild p (js.document.createTextNode Child))
-                where (string? Child)
-              Parent Child ->
-                (for-each-assoc
-                  Child
-                  (/. K V
-                    (if (not (= K markElement))
-                      (.setAttribute Parent (str K) V)
-                      ())))
-                where (and (cons? Child) (not (.markElement Child)))
-              Parent Child ->
-                (.append Parent Child))
-
-            (define h
-              [Name | Children] ->
-                (let Element (js.document.createElement Name)
-                     _       (js.assign element.markElement js.true)
-                     _       (for-each (child Element) (flatten Children))
-                     Element))
-        </script>
         <script>
             function linkIcon(url) {
-                if (url.contains("github.com")) {
-                    return "fab fa-github";
-                }
                 if (url.contains("mailto:")) {
                     return "far fa-envelope";
+                }
+                if (url.contains("github.com")) {
+                    return "fab fa-github";
                 }
                 const lastSlash = url.lastIndexOf("/");
                 if (url.substring(lastSlash + 1).contains(".")) {
@@ -120,23 +94,61 @@
                 target.parentNode.replaceChild(table, target);
             }
 
+            function fetchContributors(f) {
+                const cached = localStorage.getItem("contributors");
+                if (cached) {
+                    console.log("Using cached contributors");
+                    f(JSON.parse(cached));
+                } else {
+                    console.log("Fetching contributors");
+                    const repos = [
+                        "Shen-Language/shen-cl",
+                        "Shen-Language/shen-sources",
+                        "Shen-Language/shen-language.github.io"
+                    ];
+                    const rootApiUrl = "https://api.github.com";
+                    const contribApiUrl = repo => rootApiUrl + "/repos/" + repo + "/stats/contributors";
+                    const profileApiUrl = login => rootApiUrl + "/users/" + login;
+                    const fetchJson = url => fetch(url).then(r => r.json());
+                    Promise.all(
+                        repos.map(contribApiUrl).map(u =>
+                            fetchJson(u).then(cs =>
+                                cs.map(c => c.author.login)))
+                    ).then(ls => {
+                        const logins = _.uniq(_.flatten(ls));
+                        Promise.all(
+                            logins.map(profileApiUrl).map(u =>
+                                fetchJson(u).then(c => ({
+                                    github: c.login,
+                                    name: c.name,
+                                    blog: c.blog
+                                })))
+                        ).then(us => {
+                            localStorage.setItem("contributors", JSON.stringify(us));
+                            f(us);
+                        });
+                    });
+                }
+            }
+
             function setupCommunityTable() {
-                const table =
-                    h("table",
-                        h("thead",
-                            h("tr",
-                                h("th", "Contributor"),
-                                h("th", "Links"))),
-                        h("tbody", contributors.sortBy(p => (p.name || p.github || "").toLowerCase()).map(p =>
-                            h("tr",
-                                h("td", p.name || p.github),
-                                h("td", [
-                                    p.github && link("https://github.com/" + p.github, p.github),
-                                    p.blog && link(p.blog, "blog"),
-                                    //p.email && link("mailto:" + p.email, "email")
-                                ])))));
-                const target = document.getElementById("community-table");
-                target.parentNode.replaceChild(table, target);
+                fetchContributors(contributors => {
+                    const table =
+                        h("table",
+                            h("thead",
+                                h("tr",
+                                    h("th", "Contributor"),
+                                    h("th", "Links"))),
+                            h("tbody", contributors.sortBy(p => (p.name || p.github || "").toLowerCase()).map(p =>
+                                h("tr",
+                                    h("td", p.name || p.github),
+                                    h("td", [
+                                        p.github && link("https://github.com/" + p.github, p.github),
+                                        p.blog && link(p.blog, "blog")
+                                    ])))));
+                    const target = document.getElementById("community-table");
+                    target.parentNode.replaceChild(table, target);
+                });
             }
 
             function setup() {
