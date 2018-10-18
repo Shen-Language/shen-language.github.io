@@ -1,6 +1,8 @@
 var latestKernelVersion = 21.1;
 var recentKernelVersion = 19.2;
 
+var timeout = [1, 'days'];
+
 var ports = [
     {
         platform: "Common Lisp",
