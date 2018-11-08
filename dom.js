@@ -16,6 +16,23 @@ function child(p, c) {
 function h(name, ...children) {
     const element = document.createElement(name);
     element.markElement = true;
-    _.each(_.flatten(children).filter(x => x !== null && x !== undefined), c => child(element, c));
+    children
+        .flatten()
+        .filter(x => x !== null && x !== undefined)
+        .forEach(c => child(element, c));
     return element;
 }
+
+[
+    "a",
+    "div",
+    "i",
+    "p",
+    "span",
+    "table",
+    "tbody",
+    "td",
+    "th",
+    "thead",
+    "tr"
+].forEach(tag => eval(`h.${tag} = function (...children) { return h("${tag}", ...children); };`));
