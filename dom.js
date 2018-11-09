@@ -18,12 +18,13 @@ function h(name, ...children) {
   element.markElement = true;
   children
     .flatten()
-    .filter(x => x !== null && x !== undefined)
+    .sift()
     .forEach(c => child(element, c));
   return element;
 }
 
-[
+{
+  const tags = [
     "a",
     "div",
     "i",
@@ -35,4 +36,8 @@ function h(name, ...children) {
     "th",
     "thead",
     "tr"
-].forEach(tag => eval(`h.${tag} = function (...children) { return h("${tag}", ...children); };`));
+  ];
+  tags
+    .map(tag => `h.${tag} = function (...children) { return h("${tag}", ...children); };`)
+    .forEach(eval);
+}

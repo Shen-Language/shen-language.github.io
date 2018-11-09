@@ -22,7 +22,7 @@ String.prototype.contains = function (s) {
   return this.indexOf(s) >= 0;
 };
 
-Promise.prototype.concat = function () {
+Promise.prototype.sequence = function () {
   return this.then(xs => Promise.all(xs));
 };
 

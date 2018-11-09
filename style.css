@@ -69,22 +69,24 @@ table {
 .outdated {
   background-color: #fbb;
 }
-.feature-list {
+ul.features {
+  list-style-type: none;
+}
+.features {
   margin: 16px;
   padding-left: 0;
   display: grid;
   grid-template-columns: 50% 50%;
-  list-style-type: none;
 }
-.feature-item {
+.feature {
   margin: 8px;
 }
 
 @media only screen and (min-device-width: 769px) {
-  .feature-item:nth-child(odd) {
+  .feature:nth-child(odd) {
     grid-column: 1;
   }
-  .feature-item:nth-child(even) {
+  .feature:nth-child(even) {
     grid-column: 2;
   }
 }
@@ -105,7 +107,7 @@ table {
   header {
     font-size: 48px;
   }
-  .feature-item {
+  .feature {
     grid-column-start: 1;
     grid-column-end: -1;
   }

@@ -1,11 +1,10 @@
-const fetchJSON = url => fetch(url).then(r => r.json());
-
 function fetchContributors(onFetch, onError) {
   const orgUser = "Shen-Language";
   const apiUrl = "https://api.github.com";
   const orgReposUrl = `${apiUrl}/orgs/${orgUser}/repos`;
   const contribApiUrl = repo => `${apiUrl}/repos/${repo.full_name}/stats/contributors`;
   const profileApiUrl = login => `${apiUrl}/users/${login}`;
+  const fetchJSON = url => fetch(url).then(r => r.json());
 
   const maintainers = ports
     .map(p => p.github)
@@ -17,7 +16,7 @@ function fetchContributors(onFetch, onError) {
     .then(repos => repos
       .map(contribApiUrl)
       .map(fetchJSON))
-    .concat()
+    .sequence()
     .then(contributorLists => contributorLists
       .flatten()
       .map(c => c.author.login)
@@ -25,7 +24,7 @@ function fetchContributors(onFetch, onError) {
       .distinct()
       .map(profileApiUrl)
       .map(fetchJSON))
-    .concat()
+    .sequence()
     .then(profiles => profiles
       .sift()
       .map(({ login, name, blog }) => ({ github: login, name, blog })))
