@@ -6,28 +6,32 @@ Array.prototype.distinct = function () {
     return _.uniq(this);
 };
 
+Array.prototype.sift = function () {
+    return this.filter(p => p !== undefined && p !== null);
+};
+
 Array.prototype.flatten = function () {
     return _.flatten(this);
 };
 
 Array.prototype.partition = function (f) {
-	return _.partition(f);
+	return [this.filter(f), this.filter(x => !f(x))];
 };
 
 String.prototype.contains = function (s) {
     return this.indexOf(s) >= 0;
 };
 
-String.prototype.beforeLastSlash = function () {
-    const lastSlash = this.lastIndexOf("/");
-    return lastSlash < 0 ? this : this.substring(0, lastSlash);
-};
-
-String.prototype.afterLastSlash = function () {
-    const lastSlash = this.lastIndexOf("/");
-    return this.substring(lastSlash + 1);
-};
-
 Promise.prototype.concat = function () {
-	return this.then(x => Promise.all(x));
+	return this.then(xs => Promise.all(xs));
 };
+
+function beforeLastSlash(s) {
+    const lastSlash = s.lastIndexOf("/");
+    return lastSlash < 0 ? s : s.substring(0, lastSlash);
+}
+
+function afterLastSlash(s) {
+    const lastSlash = s.lastIndexOf("/");
+    return s.substring(lastSlash + 1);
+}

@@ -9,24 +9,26 @@ function fetchContributors(onFetch, onError) {
 
     const maintainers = ports
         .map(p => p.github)
-        .filter(p => p !== undefined && p !== null)
-        .map(g => g.beforeLastSlash())
+        .sift()
+        .map(beforeLastSlash)
         .filter(m => m !== orgUser);
 
     fetchJSON(orgReposUrl)
         .then(repos => repos
             .map(contribApiUrl)
-            .map(url => fetchJSON(url).then(committers => committers
-                .map(c => c.author.login))))
+            .map(fetchJSON))
         .concat()
-        .then(logins => logins
-            .concat(maintainers)
+        .then(contributorLists => contributorLists
             .flatten()
+            .map(c => c.author.login)
+            .concat(maintainers)
             .distinct()
             .map(profileApiUrl)
-            .map(url => fetchJSON(url).then(users => users
-                .map(({ login, name, blog }) => ({ github: login, name, blog })))))
+            .map(fetchJSON))
         .concat()
+        .then(profiles => profiles
+            .sift()
+            .map(({ login, name, blog }) => ({ github: login, name, blog })))
         .then(onFetch)
         .catch(onError);
 }
@@ -38,6 +40,7 @@ function getContributors(onFetch, onError) {
     if (cached) {
         const { timestamp, contributors } = JSON.parse(cached);
         const [amount, unit] = timeout;
+
         if (moment().isBefore(moment(timestamp).add(amount, unit))) {
             onFetch(contributors);
             return;
