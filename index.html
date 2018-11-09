@@ -13,19 +13,12 @@
     <script src="dom.js"></script>
     <script src="data.js"></script>
     <script>
-      "use strict";
-
       const linkIcon = url =>
         url.contains("mailto:") ? "far fa-envelope" :
         url.contains("github.com") ? "fab fa-github" :
         "fas fa-link";
 
-      const link = (url, name) =>
-        h.span(
-          { class: "link-spacer" },
-          h.i({ class: linkIcon(url) }),
-          " ",
-          h.a({ href: url }, name));
+      const link = (url, name) => [h.i({ class: linkIcon(url) }), h.a({ href: url }, name)];
 
       const subsectionRow = title => h.tr(h.th({ colspan: 3 }, title));
       const versionAttrs = kernel =>
@@ -132,9 +125,7 @@
         <p>
           To port Shen to a new platform, <a href="https://github.com/Shen-Language/shen-sources/blob/master/doc/porting.md">see the porting guide</a>. You can <a href="https://github.com/Shen-Language/shen-language.github.io/pull/new/master">submit a pull request</a> to get it added here.
         </p>
-        <div class="table-spacer">
-          <div id="downloads-table"></div>
-        </div>
+        <div id="downloads-table"></div>
       </section>
       <section>
         <header>Contributing</header>
@@ -147,9 +138,7 @@
         <p>
           The following is a (non-exhaustive) list of developers who have contributed to the Shen Language Open Source Community. Thanks to everyone for contributing!
         </p>
-        <div class="table-spacer">
-          <div id="community-table"></div>
-        </div>
+        <div id="community-table"></div>
       </section>
     </main>
   </body>
