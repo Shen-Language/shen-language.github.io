@@ -110,7 +110,6 @@ pre {
 @media only screen and (max-device-width: 768px) {
   main {
     margin: 16px auto;
-    padding: unset;
   }
   main table {
     width: 100%;
