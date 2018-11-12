@@ -22,7 +22,11 @@ header {
   font-size: 32px;
   font-weight: bold;
   display: block;
-  margin: 32px;
+  margin: 32px 16px;
+}
+header.small {
+  font-size: 20px;
+  text-align: left;
 }
 table {
   width: calc(100% - 36px);
@@ -54,62 +58,26 @@ td a {
 }
 code {
   font-family: 'Fira Mono', monospace;
+  cursor: default;
   width: 100%;
 }
 code .keyword {
   color: #33c;
 }
-code .keyword:hover {
-  font-weight: bold;
-  border-radius: 4px;
-  border-width: 1px;
-  border-color: #33c;
-  background-color: #ccf;
-}
 code .operator {
   color: #3c3;
-}
-code .operator:hover {
-  font-weight: bold;
-  border-radius: 4px;
-  border-width: 1px;
-  border-color: #3c3;
-  background-color: #cfc;
 }
 code .variable {
   color: #c33;
 }
-code .variable:hover {
-  font-weight: bold;
-  border-radius: 4px;
-  border-width: 1px;
-  border-color: #c33;
-  background-color: #fcc;
-}
-code .pattern:hover {
-  font-weight: bold;
-  border-radius: 4px;
-  border-width: 1px;
-  border-color: #777;
-  background-color: #ccc;
-}
 pre {
   text-align: left;
   color: #333;
-  background-color: #fffc;
-  box-shadow: 0px 0px 12px 12px #fffc;
   max-height: 512px;
-  /*transition: max-height 0.5s ease-in;*/
   width: calc(100% - 52px);
   overflow: hidden;
-  margin: 18px;
+  margin: 16px;
   padding: 8px;
-}
-pre:not([show]) {
-  max-height: 0;
-  padding: 0;
-  box-shadow: none;
-  /*transition: max-height 0.5s ease-out;*/
 }
 .latest {
   background-color: #aea;
@@ -120,18 +88,6 @@ pre:not([show]) {
 .outdated {
   background-color: #eaa;
 }
-ul.features {
-  list-style-type: none;
-}
-.features {
-  margin: 16px;
-  padding-left: 0;
-  display: grid;
-  grid-template-columns: 50% 50%;
-}
-.feature {
-  margin: 8px;
-}
 #logo {
   width: 45%;
   margin: 32px;
@@ -139,12 +95,6 @@ ul.features {
 }
 
 @media only screen and (min-device-width: 769px) {
-  .feature:nth-child(odd) {
-    grid-column: 1;
-  }
-  .feature:nth-child(even) {
-    grid-column: 2;
-  }
 }
 
 @media only screen and (max-device-width: 768px) {
@@ -158,9 +108,9 @@ ul.features {
   header {
     font-size: 48px;
   }
-  .feature {
-    grid-column-start: 1;
-    grid-column-end: -1;
+  header.small {
+    font-size: 32px;
+    text-align: unset;
   }
   #logo {
     width: 80%;
