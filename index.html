@@ -9,6 +9,7 @@
     <link ref="shortcut icon" type="image/x-icon" href="favicon.ico">
     <link rel="apple-touch-icon" href="favicon.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Mono">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
@@ -39,8 +40,7 @@
 
         getContributors(
           contributors => put(communityTableTarget, setupCommunityTable(contributors)),
-          _ => put(communityTableTarget, errorCommunityTable())
-        );
+          _ => put(communityTableTarget, errorCommunityTable()));
       };
     </script>
     <title>Shen Open Source Language</title>
@@ -53,21 +53,85 @@
       <section>
         <header>About</header>
         <p>
-          Shen is a portable functional programming language by <a href="http://www.marktarver.com/">Mark Tarver</a> offering:
+          Shen is a portable functional programming language by <a href="http://www.marktarver.com/">Mark Tarver</a>. It is the successor to the award-winning Qi language, with the added goal of being highly portable across platforms.
         </p>
-        <ul class="features">
-          <li class="feature">Pattern Matching</li>
-          <li class="feature">Lambda Calculus Consistency</li>
-          <li class="feature">Unique Macros</li>
-          <li class="feature">Optional Lazy Evalution</li>
-          <li class="feature">Configurable Static Type System</li>
-          <li class="feature">Integrated Logic Engine</li>
-          <li class="feature">Built-in Compiler-Compiler</li>
-          <li class="feature">Interactive Debugger</li>
-        </ul>
         <p>
           More information is available on the <a href="http://shenlanguage.org">official website</a> and in <a href="https://www.amazon.co.uk/Book-Shen-Third-Mark-Tarver/dp/1784562130/ref=sr_1_2?s=books&ie=UTF8&qid=1459204767&sr=1-2">The Book of Shen</a>.
         </p>
+      </section>
+      <section>
+        <header>Features</header>
+        <header class="small">Pattern Matching</header>
+        <pre><code>(<span class="keyword">define</span> filter
+  _ []       -> []
+  <span class="variable">F</span> [<span class="variable">X</span> | <span class="variable">Xs</span>] -> [<span class="variable">X</span> | (filter <span class="variable">F</span> <span class="variable">Xs</span>)]<span class="large-spacer"> </span><span class="small-spacer">
+                </span><span class="keyword">where</span> (<span class="variable">F</span> <span class="variable">X</span>)
+  <span class="variable">F</span> [_ | <span class="variable">Xs</span>] -> (filter <span class="variable">F</span> <span class="variable">Xs</span>))
+
+(<span class="keyword">define</span> element?
+  _ []      -> false
+  <span class="variable">X</span> [<span class="variable">X</span> | _] -> true
+  <span class="variable">X</span> [_ | <span class="variable">Y</span>] -> (element? <span class="variable">X</span> <span class="variable">Y</span>))</code></pre>
+        <header class="small">Backtracking</header>
+        <pre><code>(<span class="keyword">define</span> walk
+  _ []      <- (fail)
+  <span class="variable">F</span> [<span class="variable">X</span> | _] -> <span class="variable">X</span> <span class="keyword">where</span> (<span class="variable">F</span> <span class="variable">X</span>)
+  <span class="variable">F</span> [_ | <span class="variable">Y</span>] -> (walk <span class="variable">F</span> <span class="variable">Y</span>))</code></pre>
+        <header class="small">Lambda Calculus Consistency</header>
+        <pre><code>(<span class="keyword">define</span> y-combinator
+  <span class="variable">F</span> -> ((/. <span class="variable">X</span> (<span class="variable">X</span> <span class="variable">X</span>))
+        (/. <span class="variable">X</span> (<span class="variable">F</span> (/. <span class="variable">Y</span> ((<span class="variable">X</span> <span class="variable">X</span>) <span class="variable">Y</span>))))))</code></pre>
+        <header class="small">Lazy Evalution</header>
+        <pre><code>(<span class="keyword">let</span> <span class="variable">F</span> (freeze (output <span class="literal">"Hello!"</span>))
+  (thaw <span class="variable">F</span>))
+
+&gt; "Hello!"</code></pre>
+        <header class="small">Optional Type Checking</header>
+        <pre><code>(tc +)
+
+(<span class="keyword">define</span> map
+  {(<span class="variable">A</span> --> <span class="variable">B</span>) --> (list <span class="variable">A</span>) --> (list <span class="variable">B</span>)}
+  _ []       -> []
+  <span class="variable">F</span> [<span class="variable">X</span> | <span class="variable">Xs</span>] -> [(<span class="variable">F</span> <span class="variable">X</span>) | (map <span class="variable">F</span> <span class="variable">Xs</span>)])
+
+(map (+ <span class="literal">1</span>) [<span class="literal">"a"</span> <span class="literal">"b"</span> <span class="literal">"c"</span>])
+
+&gt; type error</code></pre>
+        <header class="small">Configurable Type Rules</header>
+        <pre><code>(<span class="keyword">datatype</span> maybe-type
+
+  _____________________
+    none : (maybe <span class="variable">A</span>);
+
+         <span class="variable">X</span> : <span class="variable">A</span>;
+  _____________________
+  (some <span class="variable">X</span>) : (maybe <span class="variable">A</span>);
+
+      <span class="variable">M</span> : (maybe <span class="variable">A</span>);
+  _____________________
+     (unwrap <span class="variable">M</span>) : <span class="variable">A</span>;)</code></pre>
+        <header class="small">Integrated Logic Engine</header>
+        <pre><code>(<span class="keyword">defprolog</span> member
+  <span class="variable">X</span> [<span class="variable">X</span> | _] <-- ;
+  <span class="variable">X</span> [_ | <span class="variable">Y</span>] <-- (member <span class="variable">X</span> <span class="variable">Y</span>);)
+
+(prolog?
+  (member <span class="variable">X</span> [<span class="literal">1</span> <span class="literal">2</span> <span class="literal">3</span>])
+  (member <span class="variable">X</span> [<span class="literal">3</span> <span class="literal">4</span> <span class="literal">5</span>])
+  (return <span class="variable">X</span>))
+
+&gt; 3</code></pre>
+        <header class="small">Built-in Compiler-Compiler</header>
+        <pre><code>(<span class="keyword">define</span> bit?
+  <span class="variable">B</span> -> (element? <span class="variable">B</span> [<span class="literal">0</span> <span class="literal">1</span>]))
+
+(<span class="keyword">defcc</span> &lt;b&gt;
+  <span class="variable">B</span> &lt;b&gt; := [<span class="variable">B</span> | &lt;b&gt;] <span class="keyword">where</span> (bit? <span class="variable">B</span>);
+  <span class="variable">B</span>     := [<span class="variable">B</span>] <span class="keyword">where</span> (bit? <span class="variable">B</span>);)</code></pre>
+        <header class="small">Unique Macros</header>
+        <pre><code>(<span class="keyword">defmacro</span> infix-macro
+  [<span class="variable">X</span> + <span class="variable">Y</span>] -> [+ <span class="variable">X</span> <span class="variable">Y</span>]
+  [<span class="variable">X</span> * <span class="variable">Y</span>] -> [* <span class="variable">X</span> <span class="variable">Y</span>])</code></pre>
       </section>
       <section>
         <header>Demo</header>

@@ -1,12 +1,11 @@
-* {
-  font-family: 'Fira Sans', sans-serif;
-  font-size: 16px;
-}
 body {
   width: 100%;
   margin: 0;
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 16px;
   text-align: center;
   background-image: url('background.png');
+  background-position: center;
 }
 main {
   margin: 16px auto;
@@ -19,12 +18,19 @@ main {
 }
 p {
   text-align: justify;
+  line-height: 1.4em;
 }
 header {
   font-size: 32px;
   font-weight: bold;
+  text-transform: uppercase;
   display: block;
-  margin: 32px;
+  margin: 32px 16px;
+}
+header.small {
+  font-size: 20px;
+  text-align: left;
+  margin: 24px 16px;
 }
 table {
   width: calc(100% - 36px);
@@ -34,46 +40,60 @@ table {
 }
 th, td {
   border-width: 1px;
-  border-color: #000;
+  border-color: #333;
   border-style: solid;
   margin: 0;
   padding: 6px;
 }
 th {
   text-align: left;
-  background-color: #000;
+  background-color: #333;
   color: #fff;
 }
 th[colspan="3"] {
   background-color: #ccc;
-  color: #000;
+  color: #333;
 }
 td i {
   margin-right: 4px;
 }
 td a {
-  margin-right: 8px;
+  margin-right: 10px;
+}
+code {
+  font-family: 'Fira Mono', monospace;
+  font-size: 16px;
+  cursor: default;
+  width: 100%;
+}
+code .keyword {
+  color: #33c;
+}
+code .operator {
+  color: #3c3;
+}
+code .variable {
+  color: #c33;
+}
+code .literal {
+  color: #c3c;
+}
+pre {
+  text-align: left;
+  color: #333;
+  max-height: 512px;
+  width: calc(100% - 52px);
+  margin: 16px;
+  padding: 8px;
 }
 .latest {
-  background-color: #bfb;
+  background-color: #aea;
 }
 .recent {
-  background-color: #ffb;
+  background-color: #eea;
 }
 .outdated {
-  background-color: #fbb;
-}
-ul.features {
-  list-style-type: none;
-}
-.features {
-  margin: 16px;
-  padding-left: 0;
-  display: grid;
-  grid-template-columns: 50% 50%;
-}
-.feature {
-  margin: 8px;
+  background-color: #eaa;
 }
 #logo {
   width: 45%;
@@ -82,17 +102,15 @@ ul.features {
 }
 
 @media only screen and (min-device-width: 769px) {
-  .feature:nth-child(odd) {
-    grid-column: 1;
-  }
-  .feature:nth-child(even) {
-    grid-column: 2;
+  .small-spacer {
+    display: none;
   }
 }
 
 @media only screen and (max-device-width: 768px) {
   main {
     margin: 16px auto;
+    padding: unset;
   }
   main table {
     width: 100%;
@@ -101,9 +119,19 @@ ul.features {
   header {
     font-size: 48px;
   }
-  .feature {
-    grid-column-start: 1;
-    grid-column-end: -1;
+  header.small {
+    font-size: 28px;
+    text-align: unset;
+  }
+  pre {
+    margin: 16px auto;
+    width: unset;
+  }
+  code {
+    margin: 0 auto;
+  }
+  .large-spacer {
+    display: none;
   }
   #logo {
     width: 80%;
