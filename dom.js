@@ -26,11 +26,9 @@ function h(name, ...children) {
 {
   const tags = [
     "a",
-    "code",
     "div",
     "i",
     "p",
-    "pre",
     "span",
     "table",
     "tbody",
