@@ -18,12 +18,12 @@ Array.prototype.partition = function (f) {
   return [this.filter(f), this.filter(x => !f(x))];
 };
 
-String.prototype.contains = function (s) {
-  return this.indexOf(s) >= 0;
+Array.prototype.awaitAll = function () {
+  return Promise.all(this);
 };
 
-Promise.prototype.sequence = function () {
-  return this.then(xs => Promise.all(xs));
+String.prototype.contains = function (s) {
+  return this.indexOf(s) >= 0;
 };
 
 function beforeLastSlash(s) {

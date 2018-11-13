@@ -1,35 +1,31 @@
-function fetchContributors(onFetch, onError) {
+async function fetchContributors() {
   const orgUser = "Shen-Language";
   const apiUrl = "https://api.github.com";
   const orgReposUrl = `${apiUrl}/orgs/${orgUser}/repos`;
-  const contribApiUrl = repo => `${apiUrl}/repos/${repo.full_name}/stats/contributors`;
-  const profileApiUrl = login => `${apiUrl}/users/${login}`;
+  const repoContribsUrl = repo => `${apiUrl}/repos/${repo.full_name}/stats/contributors`;
+  const profileUrl = login => `${apiUrl}/users/${login}`;
   const fetchJSON = url => fetch(url).then(r => r.json());
-
+  const repos = await fetchJSON(orgReposUrl);
+  const contributorLists = await repos
+    .map(repoContribsUrl)
+    .map(fetchJSON)
+    .awaitAll();
   const maintainers = ports
     .map(p => p.github)
     .sift()
     .map(beforeLastSlash)
     .filter(m => m !== orgUser);
-
-  fetchJSON(orgReposUrl)
-    .then(repos => repos
-      .map(contribApiUrl)
-      .map(fetchJSON))
-    .sequence()
-    .then(contributorLists => contributorLists
-      .flatten()
-      .map(c => c.author.login)
-      .concat(maintainers)
-      .distinct()
-      .map(profileApiUrl)
-      .map(fetchJSON))
-    .sequence()
-    .then(profiles => profiles
-      .sift()
-      .map(({ login, name, blog }) => ({ github: login, name, blog })))
-    .then(onFetch)
-    .catch(onError);
+  const profiles = await contributorLists
+    .flatten()
+    .map(c => c.author.login)
+    .concat(maintainers)
+    .distinct()
+    .map(profileUrl)
+    .map(fetchJSON)
+    .awaitAll();
+  return profiles
+    .sift()
+    .map(({ login, name, blog }) => ({ github: login, name, blog }));
 }
 
 function getContributors(onFetch, onError) {
@@ -46,11 +42,11 @@ function getContributors(onFetch, onError) {
     }
   }
 
-  fetchContributors(
-    contributors => {
+  fetchContributors()
+    .then(contributors => {
       const cached = { timestamp: moment(), contributors };
       localStorage.setItem(key, JSON.stringify(cached));
       onFetch(contributors);
-    },
-    onError);
+    })
+    .catch(onError);
 }
