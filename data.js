@@ -61,7 +61,7 @@ var ports = [
   {
     platform: "Scheme",
     github: "tizoc/shen-scheme",
-    kernel: "21.0",
+    kernel: "21.1",
     certified: true
   },
   {
