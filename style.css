@@ -98,7 +98,14 @@ pre {
 #logo {
   width: 45%;
   margin: 32px;
+  margin-bottom: 0;
   max-width: 500px;
+}
+#logo-text {
+  font-size: 64px;
+  margin-top: 0;
+  letter-spacing: 16px;
+  text-indent: 16px;
 }
 
 @media only screen and (min-device-width: 769px) {
