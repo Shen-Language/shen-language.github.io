@@ -25,6 +25,7 @@ async function fetchContributors() {
     .awaitAll();
   return profiles
     .sift()
+    .filter(p => Object.keys(p).length > 0)
     .map(({ login, name, blog }) => ({ github: login, name, blog }));
 }
 
