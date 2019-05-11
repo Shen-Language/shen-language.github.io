@@ -78,13 +78,14 @@ var ports = [
   },
   {
     platform: "JavaScript",
-    github: "gravicappa/shen-js",
-    kernel: "19.2"
+    github: "rkoeninger/ShenScript",
+    kernel: "21.1",
+    certified: true
   },
   {
     platform: "JavaScript",
-    github: "rkoeninger/ShenScript",
-    kernel: "21.0"
+    github: "gravicappa/shen-js",
+    kernel: "19.2"
   },
   {
     platform: "C++",
