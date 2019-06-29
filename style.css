@@ -37,6 +37,7 @@ table {
   margin: 32px auto 40px;
   border-spacing: 0;
   border-collapse: collapse;
+  text-align: left;
 }
 th, td {
   border-width: 1px;
@@ -46,7 +47,6 @@ th, td {
   padding: 6px;
 }
 th {
-  text-align: left;
   background-color: #333;
   color: #fff;
 }
