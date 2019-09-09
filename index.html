@@ -41,6 +41,12 @@
         getContributors(
           contributors => put(communityTableTarget, setupCommunityTable(contributors)),
           _ => put(communityTableTarget, errorCommunityTable()));
+
+        const targetAnchor = document.location.fragment.hash;
+
+        if (hash && hash.length > 0) {
+          document.getElementById(hash.substring(1)).scrollIntoView();
+        }
       };
     </script>
     <title>Shen Open Source Language</title>
@@ -61,7 +67,7 @@
         </p>
       </section>
       <section>
-        <header><a class="anchor" aria-hidden="true" href="#features">Features</a></header>
+        <header><a class="anchor" aria-hidden="true" id="features" href="#features">Features</a></header>
         <header class="small">Pattern Matching</header>
         <pre><code>(<span class="keyword">define</span> filter
   _ []       -> []
@@ -135,13 +141,13 @@
   [<span class="variable">X</span> * <span class="variable">Y</span>] -> [* <span class="variable">X</span> <span class="variable">Y</span>])</code></pre>
       </section>
       <section>
-        <header><a class="anchor" aria-hidden="true" href="#demo">Demo</a></header>
+        <header><a class="anchor" aria-hidden="true" id="demo" href="#demo">Demo</a></header>
         <p>
           An in-browser REPL is hosted <a href="http://gravicappa.github.io/shen-js/shen.html#/.doc/welcome.html">here</a> where you can try out Shen and take a brief tutorial.
         </p>
       </section>
       <section>
-        <header><a class="anchor" aria-hidden="true" href="#downloads">Downloads</a></header>
+        <header><a class="anchor" aria-hidden="true" id="downloads" href="#downloads">Downloads</a></header>
         <p>
           There are implementations of Shen for most platforms. Some have fallen out of date and could use support to reach Certified status and stay current.
         </p>
@@ -176,13 +182,13 @@
         </script>
       </section>
       <section>
-        <header><a class="anchor" aria-hidden="true" href="#contributing">Contributing</a></header>
+        <header><a class="anchor" aria-hidden="true" id="contributing" href="#contributing">Contributing</a></header>
         <p>
           The Shen Open Source Kernel is authored in Shen itself and hosted <a href="https://github.com/Shen-Language/shen-sources">on GitHub</a>. Bug reports and suggested enhancements are welcome!
         </p>
       </section>
       <section>
-        <header><a class="anchor" aria-hidden="true" href="#community">Community</a></header>
+        <header><a class="anchor" aria-hidden="true" id="community" href="#community">Community</a></header>
         <p>
           The following is a (non-exhaustive) list of developers who have contributed to the Shen Language Open Source Community. Thanks to everyone for contributing!
         </p>
