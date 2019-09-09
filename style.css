@@ -95,6 +95,10 @@ pre {
 .outdated {
   background-color: #eaa;
 }
+.anchor {
+  text-decoration: unset;
+  color: unset;
+}
 #logo {
   width: 45%;
   margin: 32px;
