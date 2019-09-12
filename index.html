@@ -42,7 +42,7 @@
           contributors => put(communityTableTarget, setupCommunityTable(contributors)),
           _ => put(communityTableTarget, errorCommunityTable()));
 
-        const targetAnchor = document.location.fragment.hash;
+        const targetAnchor = document.location.hash;
 
         if (hash && hash.length > 0) {
           document.getElementById(hash.substring(1)).scrollIntoView();
