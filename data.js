@@ -13,7 +13,7 @@ var ports = [
   {
     platform: "C",
     github: "otabat/shen-c",
-    kernel: "20.0",
+    kernel: "20.1",
     certified: true
   },
   {
@@ -25,7 +25,7 @@ var ports = [
   {
     platform: "Emacs Lisp",
     github: "deech/shen-elisp",
-    kernel: "20.0",
+    kernel: "21.0",
     certified: true
   },
   {
@@ -49,13 +49,13 @@ var ports = [
   {
     platform: "Java",
     github: "otabat/shen-jvm",
-    kernel: "21.0",
+    kernel: "20.1",
     certified: true
   },
   {
     platform: "Ruby",
     github: "gregspurrier/shen-ruby",
-    kernel: "19.2",
+    kernel: "19.1",
     certified: true
   },
   {
@@ -67,7 +67,7 @@ var ports = [
   {
     platform: "Truffle",
     github: "ragnard/shen-truffle",
-    kernel: "20.0",
+    kernel: "20.1",
     certified: true
   },
   {
