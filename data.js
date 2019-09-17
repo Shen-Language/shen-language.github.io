@@ -1,4 +1,4 @@
-var latestKernelVersion = 21.1;
+var latestKernelVersion = 21.2;
 var recentKernelVersion = 19.2;
 
 var timeout = [1, "days"];
