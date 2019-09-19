@@ -79,7 +79,7 @@ var ports = [
   {
     platform: "JavaScript",
     github: "rkoeninger/ShenScript",
-    kernel: "21.1",
+    kernel: "21.2",
     certified: true
   },
   {
