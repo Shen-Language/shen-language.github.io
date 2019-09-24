@@ -19,7 +19,7 @@ var ports = [
   {
     platform: "CLR",
     github: "rkoeninger/ShenSharp",
-    kernel: "21.1",
+    kernel: "21.2",
     certified: true
   },
   {
