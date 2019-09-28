@@ -73,7 +73,7 @@ var ports = [
   {
     platform: "Wasp Lisp",
     github: "doublec/shen-wasp",
-    kernel: "21.1",
+    kernel: "22.0",
     certified: true
   },
   {
