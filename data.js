@@ -7,7 +7,7 @@ var ports = [
   {
     platform: "Common Lisp",
     github: "Shen-Language/shen-cl",
-    kernel: "21.2",
+    kernel: "22.1",
     certified: true
   },
   {
