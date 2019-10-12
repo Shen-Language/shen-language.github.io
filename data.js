@@ -1,4 +1,4 @@
-var latestKernelVersion = 22.1;
+var latestKernelVersion = 22.0;
 var recentKernelVersion = 20.0;
 
 var timeout = [1, "days"];
@@ -7,7 +7,7 @@ var ports = [
   {
     platform: "Common Lisp",
     github: "Shen-Language/shen-cl",
-    kernel: "22.1",
+    kernel: "22.2",
     certified: true
   },
   {
@@ -61,7 +61,7 @@ var ports = [
   {
     platform: "Scheme",
     github: "tizoc/shen-scheme",
-    kernel: "22.1",
+    kernel: "22.2",
     certified: true
   },
   {
@@ -79,7 +79,7 @@ var ports = [
   {
     platform: "JavaScript",
     github: "rkoeninger/ShenScript",
-    kernel: "22.1",
+    kernel: "22.2",
     certified: true
   },
   {
