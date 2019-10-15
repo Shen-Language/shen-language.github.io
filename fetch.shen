@@ -7,7 +7,8 @@
        Repos           (shen-script.array->list (web.fetch-json OrgReposUrl))
        Logins          (map (/. C (. C "author" "login"))
                          (flatten
-                           (web.fetch-json* (map RepoContribsUrl Repos))))
+                           (map (function shen-script.array->list)
+                             (web.fetch-json* (map RepoContribsUrl Repos)))))
        Maintainers     (filter (/. U (not (= U OrgUser)))
                          (map (function before-last-slash)
                            (sift
@@ -20,9 +21,9 @@
     (map
       (/. X
         ({
-          "login" (. X "github")
-          "name"  (. X "name")
-          "blog"  (. X "blog")
+          "github" (. X "login")
+          "name"   (. X "name")
+          "blog"   (. X "blog")
         }))
       (filter (/. X (> (. ((. (js.Object) "keys") X) "length") 0))
         (sift Profiles)))))
