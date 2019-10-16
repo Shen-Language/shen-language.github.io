@@ -47,12 +47,12 @@
   Timestamp -> ((. (web.window) "moment") Timestamp))
 
 (define fetch-and-set-contributors
-  Key -> (do (js.log "fetching...")
+  Key ->
     (let Fetched (fetch-contributors)
          Cached  ({ "timestamp" (moment) "contributors" (shen-script.list->array-tree Fetched) })
       (do
         (local-set Key (json-stringify Cached))
-        Fetched))))
+        Fetched)))
 
 (define load-contributors ->
   (let Key    "contributors"
@@ -65,6 +65,6 @@
            Unit       (value *timeout-unit*)
            Expiration ((. (moment-at Timestamp) "add") Amount Unit)
         (if (js.truthy? ((. (moment) "isBefore") Expiration))
-          (do (js.log "got from local") Fetched)
+          Fetched
           (fetch-and-set-contributors Key)))
       (fetch-and-set-contributors Key))))
