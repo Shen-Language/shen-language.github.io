@@ -21,7 +21,7 @@
 
 (define vector->list-h
   0 _ Xs -> Xs
-  I V Xs -> (vector->list (- I 1) V [(<-vector V I) | Xs]))
+  I V Xs -> (vector->list-h (- I 1) V [(<-vector V I) | Xs]))
 
 (define vector->list
   V -> (vector->list-h (limit V) V []))
@@ -64,6 +64,6 @@
       (if (< I 0) S ((. S "substring") 0 I))))
 
 (define after-last-slash
-  ""         -> ""
-  (@s "/" S) -> S
-  (@s _   S) -> (after-last-slash S))
+  S ->
+    (let I ((. S "lastIndexOf") "/")
+      (if (< I 0) S ((. S "substring") (+ 1 I)))))
