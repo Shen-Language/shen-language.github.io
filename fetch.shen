@@ -28,5 +28,43 @@
       (filter (/. X (> (. ((. (js.Object) "keys") X) "length") 0))
         (sift Profiles)))))
 
+(define local-get
+  Key -> ((. (web.window) "localStorage" "getItem") Key))
+
+(define local-set
+  Key Value -> ((. (web.window) "localStorage" "setItem") Key Value))
+
+(define json-parse
+  X -> ((. (js.JSON) "parse") X))
+
+(define json-stringify
+  X -> ((. (js.JSON) "stringify") X))
+
+(define moment ->
+  ((. (web.window) "moment")))
+
+(define moment-at
+  Timestamp -> ((. (web.window) "moment") Timestamp))
+
+(define fetch-and-set-contributors
+  Key -> (do (js.log "fetching...")
+    (let Fetched (fetch-contributors)
+         Cached  ({ "timestamp" (moment) "contributors" (shen-script.list->array-tree Fetched) })
+      (do
+        (local-set Key (json-stringify Cached))
+        Fetched))))
+
 (define load-contributors ->
-  ())
+  (let Key    "contributors"
+       Cached (local-get Key)
+    (if (js.truthy? Cached)
+      (let Parsed     (json-parse Cached)
+           Timestamp  (. Cached "timestamp")
+           Fetched    (shen-script.array->list-tree (. Cached Key))
+           Amount     (value *timeout-amount*)
+           Unit       (value *timeout-unit*)
+           Expiration ((. (moment-at Timestamp) "add") Amount Unit)
+        (if (js.truthy? ((. (moment) "isBefore") Expiration))
+          (do (js.log "got from local") Fetched)
+          (fetch-and-set-contributors Key)))
+      (fetch-and-set-contributors Key))))

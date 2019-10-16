@@ -26,7 +26,7 @@
             (load "data.shen")
             (load "utils.shen")
             (load "fetch.shen")
-            (js.log (fetch-contributors)))))
+            (js.log (load-contributors)))))
     </script>
     <script>
       (async () => {
@@ -53,9 +53,9 @@
 
         put(downloadsTableTarget, setupDownloadsTable(certifiedPorts, uncertifiedPorts));
 
-        getContributors(
-          contributors => put(communityTableTarget, setupCommunityTable(contributors)),
-          _ => put(communityTableTarget, errorCommunityTable()));
+        // getContributors(
+        //   contributors => put(communityTableTarget, setupCommunityTable(contributors)),
+        //   _ => put(communityTableTarget, errorCommunityTable()));
 
         const hash = document.location.hash;
 
