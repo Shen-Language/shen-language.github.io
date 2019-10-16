@@ -2,13 +2,16 @@
 (load "utils.shen")
 (load "fetch.shen")
 
+(define string-contains
+  S T -> (>= ((. S "indexOf") T) 0))
+
 (define link-icon
-  Url -> "far fa-envelope" where (js.truthy? ((. Url "contains") "mailto:"))
-  Url -> "fab fa-github"   where (js.truthy? ((. Url "contains") "github.com"))
+  Url -> "far fa-envelope" where (string-contains Url "mailto:")
+  Url -> "fab fa-github"   where (string-contains Url "github.com")
   _   -> "fas fa-link")
 
 (define link
-  Url Name -> (dom.build [span [i [@class (link-icon Url)]] [a [@href Url] Name]]))
+  Url Name -> [span [i [@class (link-icon Url)]] [a [@href Url] Name]])
 
 (define version-attributes
   Kernel -> [[@class "latest"] [@title "Up-to-date with the latest"]]      where (>= Kernel (value *latest-kernel-version*))
@@ -29,12 +32,10 @@
   Certified Uncertified ->
     [table
       [thead [tr [th "Platform"] [th "Port"] [th "Kernel"]]]
-      [tbody
+      [tbody |
         (append
-          [[tr [th [@colspan 3] "Certified"]]]
-          (map (function port-row) Certified)
-          [[tr [th [@colspan 3] "Uncertified"]]]
-          (map (function port-row) Uncertified))]])
+          [[tr [th [@colspan 3] "Certified"]]   | (map (function port-row) Certified)]
+          [[tr [th [@colspan 3] "Uncertified"]] | (map (function port-row) Uncertified)])]])
 
 (define setup-downloads-table ->
   (let NonArchival (filter (/. P (js.falsy? (. P "archival"))) (value *ports*))
@@ -72,9 +73,11 @@
         (trap-error
           (community-table Contributors)
           (/. E
-            [div
-              [p "Unable to load contributors"]
-              [p "GitHub rate limit may be expended, try again later"]]))))))
+            (do
+              ((. (js.console) "error") E)
+              [div
+                [p "Unable to load contributors"]
+                [p "GitHub rate limit may be expended, try again later"]])))))))
 
 (define scroll-to-anchor ->
   (let Hash (. (web.document) "location" "hash")
