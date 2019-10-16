@@ -50,7 +50,8 @@
 (define contributor-row
   C ->
     [tr
-      [td (js.raw.or (. C "name") (. C "github"))]
+      (sift
+        [td (js.raw.or (. C "name") (. C "github"))])
       (sift
         [td
           (js.raw.and (. C "github") (link (@s "https://github.com/" (. C "github")) (. C "github")))
@@ -66,18 +67,17 @@
             Contributors))]])
 
 (define setup-community-table ->
-  (let Contributors (load-contributors)
-    (dom.replace
-      (dom.query "#community-table")
-      (dom.build
-        (trap-error
-          (community-table Contributors)
-          (/. E
-            (do
-              ((. (js.console) "error") E)
-              [div
-                [p "Unable to load contributors"]
-                [p "GitHub rate limit may be expended, try again later"]])))))))
+  (dom.replace
+    (dom.query "#community-table")
+    (dom.build
+      (trap-error
+        (community-table (sift (load-contributors)))
+        (/. E
+          (do
+            ((. (js.console) "error") E)
+            [div
+              [p "Unable to load contributors"]
+              [p "GitHub rate limit may be expended, try again later"]]))))))
 
 (define scroll-to-anchor ->
   (let Hash (. (web.document) "location" "hash")
