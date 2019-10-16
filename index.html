@@ -12,43 +12,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans|Fira+Mono">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
-    <script src="utils.js"></script>
-    <script src="fetch.js"></script>
-    <script src="dom.js"></script>
-    <script src="data.js"></script>
-    <script>
-      const linkIcon = url =>
-        url.contains("mailto:") ? "far fa-envelope" :
-        url.contains("github.com") ? "fab fa-github" :
-        "fas fa-link";
-
-      const link = (url, name) => [h.i({ class: linkIcon(url) }), h.a({ href: url }, name)];
-
-      onload = () => {
-        const downloadsTableTarget = document.getElementById("downloads-table");
-        const communityTableTarget = document.getElementById("community-table");
-        const put = (target, node) => target.parentNode.replaceChild(node, target);
-
-        const [certifiedPorts, uncertifiedPorts] = ports
-          .filter(p => !p.archival)
-          .sortBy(p => p.platform)
-          .partition(p => p.certified);
-
-        put(downloadsTableTarget, setupDownloadsTable(certifiedPorts, uncertifiedPorts));
-
-        getContributors(
-          contributors => put(communityTableTarget, setupCommunityTable(contributors)),
-          _ => put(communityTableTarget, errorCommunityTable()));
-
-        const hash = document.location.hash;
-
-        if (hash && hash.length > 0) {
-          document.getElementById(hash.substring(1)).scrollIntoView();
-        }
-      };
-    </script>
+    <script src="https://github.com/rkoeninger/ShenScript/releases/download/v0.12.0/shen-script.min.js"></script>
+    <script>(new Shen()).then($ => (window.$ = $, $.load('index.shen')));</script>
     <title>Shen Open Source Language</title>
   </head>
   <body>
@@ -157,29 +122,7 @@
         <p>
           To port Shen to a new platform, <a href="https://github.com/Shen-Language/shen-sources/blob/master/doc/porting.md">see the porting guide</a>. You can <a href="https://github.com/Shen-Language/shen-language.github.io">submit a pull request</a> to get it added here.
         </p>
-        <script id="downloads-table">
-          const versionAttrs = kernel =>
-            (parseFloat(kernel) >= latestKernelVersion) ? { class: "latest", title: "Up-to-date with the latest" } :
-            (parseFloat(kernel) >= recentKernelVersion) ? { class: "recent", title: "Compatible with recent versions" } :
-            { class: "outdated", title: "Several versions out-of-date" };
-
-          const portRow = port =>
-            h.tr(
-              h.td(port.platform),
-              h.td(link(
-                port.url || "https://github.com/" + port.github,
-                port.name || afterLastSlash(port.github || port.url))),
-              h.td(versionAttrs(port.kernel), port.kernel));
-
-          const setupDownloadsTable = (certifiedPorts, uncertifiedPorts) =>
-            h.table(
-              h.thead(h.tr(h.th("Platform"), h.th("Port"), h.th("Kernel"))),
-              h.tbody(
-                h.tr(h.th({ colspan: 3 }, "Certified")),
-                certifiedPorts.map(portRow),
-                h.tr(h.th({ colspan: 3 }, "Uncertified")),
-                uncertifiedPorts.map(portRow)));
-        </script>
+        <div id="downloads-table"></div>
       </section>
       <section>
         <header><a class="anchor" aria-hidden="true" id="contributing" href="#contributing">Contributing</a></header>
@@ -192,25 +135,7 @@
         <p>
           The following is a (non-exhaustive) list of developers who have contributed to the Shen Language Open Source Community. Thanks to everyone for contributing!
         </p>
-        <script id="community-table">
-          const setupCommunityTable = contributors =>
-            h.table(
-              h.thead(h.tr(h.th("Contributor"), h.th("Links"))),
-              h.tbody(contributors
-                .sortBy(c => (c.name || c.github || "").toLowerCase())
-                .map(c =>
-                  h.tr(
-                    h.td(c.name || c.github),
-                    h.td([
-                      c.github && link("https://github.com/" + c.github, c.github),
-                      c.blog && link(c.blog, "blog")
-                    ])))));
-
-          const errorCommunityTable = () =>
-            h.div(
-              h.p("Unable to load contributors"),
-              h.p("GitHub rate limit may be expended, try again later"));
-        </script>
+        <div id="community-table"></div>
       </section>
     </main>
   </body>
