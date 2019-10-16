@@ -35,36 +35,32 @@
   Key Value -> ((. (web.window) "localStorage" "setItem") Key Value))
 
 (define json-parse
-  X -> ((. (js.JSON) "parse") X))
+  X -> ((. (js.JSON) "parse") X) where (string? X)
+  _ -> (js.undefined))
 
 (define json-stringify
   X -> ((. (js.JSON) "stringify") X))
 
-(define moment ->
-  ((. (web.window) "moment")))
-
-(define moment-at
-  Timestamp -> ((. (web.window) "moment") Timestamp))
-
 (define fetch-and-set-contributors
   Key ->
     (let Fetched (fetch-contributors)
-         Cached  ({ "timestamp" (moment) "contributors" (shen-script.list->array-tree Fetched) })
+         Now     (get-time unix)
+         Cached  ({
+                   "timestamp" Now
+                   Key         (shen-script.list->array Fetched)
+                 })
       (do
         (local-set Key (json-stringify Cached))
         Fetched)))
 
 (define load-contributors ->
   (let Key    "contributors"
-       Cached (local-get Key)
+       Cached (json-parse (local-get Key))
     (if (js.truthy? Cached)
-      (let Parsed     (json-parse Cached)
-           Timestamp  (. Cached "timestamp")
-           Fetched    (shen-script.array->list-tree (. Cached Key))
-           Amount     (value *timeout-amount*)
-           Unit       (value *timeout-unit*)
-           Expiration ((. (moment-at Timestamp) "add") Amount Unit)
-        (if (js.truthy? ((. (moment) "isBefore") Expiration))
-          Fetched
+      (let Timestamp (. Cached "timestamp")
+           Timeout   (value *timeout*)
+           Now       (get-time unix)
+        (if (and (number? Timestamp) (< Now (+ Timestamp Timeout)))
+          (shen-script.array->list (. Cached Key))
           (fetch-and-set-contributors Key)))
       (fetch-and-set-contributors Key))))

@@ -1,7 +1,6 @@
 (set *latest-kernel-version* 22.0)
 (set *recent-kernel-version* 20.0)
-(set *timeout-amount* 1)
-(set *timeout-unit* "days")
+(set *timeout* (* 24 60 60))
 (set *ports* [
   ({
     "platform"  "Common Lisp"
