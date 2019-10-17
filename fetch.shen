@@ -34,13 +34,6 @@
 (define local-set
   Key Value -> ((. (web.window) "localStorage" "setItem") Key Value))
 
-(define json-parse
-  X -> ((. (js.JSON) "parse") X) where (string? X)
-  _ -> (js.undefined))
-
-(define json-stringify
-  X -> ((. (js.JSON) "stringify") X))
-
 (define fetch-and-set-contributors
   Key ->
     (let Fetched (fetch-contributors)
@@ -50,12 +43,12 @@
                    Key         (shen-script.list->array Fetched)
                  })
       (do
-        (local-set Key (json-stringify Cached))
+        (local-set Key (json.str Cached))
         Fetched)))
 
 (define load-contributors ->
   (let Key    "contributors"
-       Cached (json-parse (local-get Key))
+       Cached (json.parse (local-get Key))
     (if (js.truthy? Cached)
       (let Timestamp (. Cached "timestamp")
            Timeout   (value *timeout*)
