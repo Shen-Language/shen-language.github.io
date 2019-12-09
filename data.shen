@@ -29,7 +29,7 @@
   ({
     "platform"  "Erlang"
     "github"    "sborrazas/shen-erl"
-    "kernel"    "21.1"
+    "kernel"    "22.2"
     "certified" true
   })
   ({
