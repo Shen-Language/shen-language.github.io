@@ -77,7 +77,7 @@
   ({
     "platform"  "JavaScript"
     "github"    "rkoeninger/ShenScript"
-    "kernel"    "22.2"
+    "kernel"    "22.4"
     "certified" true
   })
   ({
