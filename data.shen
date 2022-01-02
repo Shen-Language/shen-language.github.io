@@ -11,7 +11,7 @@
   ({
     "platform"  "C"
     "github"    "otabat/shen-c"
-    "kernel"    "20.1"
+    "kernel"    "22.4"
     "certified" true
   })
   ({
