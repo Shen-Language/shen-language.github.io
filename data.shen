@@ -39,6 +39,13 @@
     "certified" true
   })
   ({
+    "name"      "shen-go (bytecode VM)"
+    "platform"  "Go"
+    "github"    "pyrex41/shen-go"
+    "kernel"    "41.1"
+    "certified" true
+  })
+  ({
     "platform"  "Haskell"
     "github"    "mthom/shentong"
     "kernel"    "20.0"
