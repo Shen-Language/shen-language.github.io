@@ -58,6 +58,12 @@
     "certified" true
   })
   ({
+    "platform"  "Lua"
+    "github"    "pyrex41/shen-lua"
+    "kernel"    "41.1"
+    "certified" true
+  })
+  ({
     "platform"  "Ruby"
     "github"    "gregspurrier/shen-ruby"
     "kernel"    "19.1"
