@@ -70,6 +70,12 @@
     "certified" true
   })
   ({
+    "platform"  "Rust"
+    "github"    "pyrex41/shen-rust"
+    "kernel"    "41.1"
+    "certified" true
+  })
+  ({
     "platform"  "Scheme"
     "github"    "tizoc/shen-scheme"
     "kernel"    "22.2"
