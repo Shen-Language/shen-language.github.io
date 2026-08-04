@@ -39,11 +39,12 @@
     "certified" true
   })
   ({
-    "name"      "shen-go (bytecode VM)"
+    "name"      "Shen/Go"
     "platform"  "Go"
     "github"    "pyrex41/shen-go"
-    "kernel"    "41.1"
-    "certified" true
+    "kernel"    "41.2"
+    "experimental" true
+    "windows-tested" false
   })
   ({
     "platform"  "Haskell"
@@ -58,10 +59,12 @@
     "certified" true
   })
   ({
-    "platform"  "Lua"
+    "name"      "Shen/Lua"
+    "platform"  "LuaJIT"
     "github"    "pyrex41/shen-lua"
-    "kernel"    "41.1"
-    "certified" true
+    "kernel"    "41.2"
+    "experimental" true
+    "windows-tested" false
   })
   ({
     "platform"  "Ruby"
@@ -70,16 +73,34 @@
     "certified" true
   })
   ({
+    "name"      "Shen/Rust"
     "platform"  "Rust"
     "github"    "pyrex41/shen-rust"
-    "kernel"    "41.1"
-    "certified" true
+    "kernel"    "41.2"
+    "experimental" true
+    "windows-tested" false
   })
   ({
     "platform"  "Scheme"
     "github"    "tizoc/shen-scheme"
     "kernel"    "22.2"
     "certified" true
+  })
+  ({
+    "name"     "Shen/Julia"
+    "platform" "Julia"
+    "github"   "pyrex41/shen-julia"
+    "kernel"   "41.2"
+    "experimental" true
+    "windows-tested" false
+  })
+  ({
+    "name"     "Shen/Swift"
+    "platform" "Swift"
+    "github"   "pyrex41/shen-swift"
+    "kernel"   "41.2"
+    "experimental" true
+    "windows-tested" false
   })
   ({
     "platform"  "Truffle"
