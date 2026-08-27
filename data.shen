@@ -1,5 +1,5 @@
-(set *latest-kernel-version* 22.0)
-(set *recent-kernel-version* 20.0)
+(set *latest-kernel-version* 42.0)
+(set *recent-kernel-version* 41.2)
 (set *timeout* (* 24 60 60))
 (set *ports* [
   ({
@@ -39,12 +39,11 @@
     "certified" true
   })
   ({
-    "name"      "Shen/Go"
+    "name"      "shen-go (bytecode VM)"
     "platform"  "Go"
     "github"    "pyrex41/shen-go"
-    "kernel"    "41.2"
-    "experimental" true
-    "windows-tested" false
+    "kernel"    "42.0"
+    "certified" true
   })
   ({
     "platform"  "Haskell"
@@ -59,12 +58,10 @@
     "certified" true
   })
   ({
-    "name"      "Shen/Lua"
-    "platform"  "LuaJIT"
+    "platform"  "Lua"
     "github"    "pyrex41/shen-lua"
-    "kernel"    "41.2"
-    "experimental" true
-    "windows-tested" false
+    "kernel"    "42.0"
+    "certified" true
   })
   ({
     "platform"  "Ruby"
@@ -73,12 +70,24 @@
     "certified" true
   })
   ({
-    "name"      "Shen/Rust"
     "platform"  "Rust"
     "github"    "pyrex41/shen-rust"
+    "kernel"    "42.0"
+    "certified" true
+  })
+  ({
+    "name"      "shen-julia"
+    "platform"  "Julia"
+    "github"    "pyrex41/shen-julia"
+    "kernel"    "42.0"
+    "certified" true
+  })
+  ({
+    "name"      "shen-swift"
+    "platform"  "Swift"
+    "github"    "pyrex41/shen-swift"
     "kernel"    "41.2"
-    "experimental" true
-    "windows-tested" false
+    "certified" true
   })
   ({
     "platform"  "Scheme"
@@ -87,28 +96,11 @@
     "certified" true
   })
   ({
-    "name"     "Shen/Julia"
-    "platform" "Julia"
-    "github"   "pyrex41/shen-julia"
-    "kernel"   "41.2"
-    "experimental" true
-    "windows-tested" false
-  })
-  ({
-    "name"     "Shen/Swift"
-    "platform" "Swift"
-    "github"   "pyrex41/shen-swift"
-    "kernel"   "41.2"
-    "experimental" true
-    "windows-tested" false
-  })
-  ({
-    "name"     "Shen/Truffle"
-    "platform" "Truffle"
-    "github"   "pyrex41/shen-truffle"
-    "kernel"   "41.2"
-    "experimental" true
-    "windows-tested" false
+    "name"      "shen-truffle (GraalVM 25)"
+    "platform"  "Truffle"
+    "github"    "pyrex41/shen-truffle"
+    "kernel"    "42.0"
+    "certified" true
   })
   ({
     "platform"  "Truffle"
