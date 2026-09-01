@@ -15,6 +15,13 @@
     "certified" true
   })
   ({
+    "name"      "shen-c (C17 + Boehm, AOT kernel)"
+    "platform"  "C"
+    "github"    "pyrex41/shen-c"
+    "kernel"    "42.0"
+    "certified" true
+  })
+  ({
     "platform"  "CLR"
     "github"    "rkoeninger/ShenSharp"
     "kernel"    "21.2"
