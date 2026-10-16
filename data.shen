@@ -5,7 +5,7 @@
   ({
     "platform"  "Common Lisp"
     "github"    "Shen-Language/shen-cl"
-    "kernel"    "22.2"
+    "kernel"    "43.1"
     "certified" true
   })
   ({
