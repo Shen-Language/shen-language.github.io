@@ -22,6 +22,13 @@
     "certified" true
   })
   ({
+    "name"      "Shen/JIT"
+    "platform"  "Native (JIT)"
+    "github"    "tizoc/shen-jit"
+    "kernel"    "43.2"
+    "certified" true
+  })
+  ({
     "platform"  "CLR"
     "github"    "rkoeninger/ShenSharp"
     "kernel"    "21.2"
